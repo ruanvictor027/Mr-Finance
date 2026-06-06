@@ -1,0 +1,22 @@
+{
+  "name": "MR Finance — Painel Financeiro",
+  "short_name": "MR Finance",
+  "description": "Painel financeiro pessoal: importa extratos OFX/CSV/PDF, categoriza automaticamente e organiza por mês. Tudo no seu aparelho.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "index.html",
+  "scope": "./",
+  "id": "/mr-finance/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#050814",
+  "theme_color": "#7c4dff",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

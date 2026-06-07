@@ -227,6 +227,27 @@
   /* DRE em tela cheia: no celular usa os cards mensais (mais legível que a tabela larga) */
   .dre-full-content .dre-mobile{display:block!important;padding:0!important;flex:1 1 auto;min-height:0;overflow:auto}
   .dre-full-content .dre-wrap-full,.dre-full-content .dre-wrap,.dre-full-content .dre-full-helper{display:none!important}
+  /* Fluxo por data: vira cartão (sem corte horizontal). Entradas/saídas já aparecem como chips na descrição; à direita fica o saldo do dia. */
+  .flow-table{overflow-x:hidden}
+  .flow-row{grid-template-columns:44px minmax(0,1fr) auto;min-width:0;gap:6px 9px;align-items:center;padding:11px 0}
+  .flow-row.headrow{display:none}
+  .flow-row>strong:nth-child(3),.flow-row>strong:nth-child(4){display:none}
+  .flow-row>strong:nth-child(5){font-size:13px}
+  .flow-row>strong:nth-child(5)::before{content:"saldo";display:block;font-size:8.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#7e8db5;text-align:right;margin-bottom:1px}
+  .flow-desc small{white-space:normal;line-height:1.55}
+  .flow-desc .flow-chip{margin-top:2px}
+  /* cabeçalhos de painel: botão "Ver todos/transações" não quebra em 2 linhas */
+  .head{gap:10px}
+  .head>div:first-child{min-width:0}
+  .head .mini{white-space:nowrap;flex:0 0 auto}
+  /* títulos de página menos gigantes no celular */
+  .page-title{font-size:20px;margin-bottom:12px}
+  /* Destaques: card compacto (ícone à esquerda + texto), sem espaço vazio sobrando */
+  .highlights{grid-template-columns:1fr;gap:10px;padding:0 16px 16px}
+  .hl{min-height:0;display:grid;grid-template-columns:auto 1fr;column-gap:13px;row-gap:1px;align-items:center;padding:13px 15px}
+  .hl .hico{grid-row:1/4;grid-column:1;align-self:center;margin:0;width:48px;height:48px;border-radius:15px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:23px}
+  .hl small,.hl b,.hl p{grid-column:2}
+  .hl b{max-height:none}
 }
 /* Corrige overflow: a regra de <=1300px reativava 2 colunas (min 360px) abaixo de 1100px.
    Em telas estreitas estes grids voltam a 1 coluna, evitando rolagem horizontal. */
@@ -234,243 +255,6 @@
   .wide-left{grid-template-columns:1fr}
   .donut-wrap{grid-template-columns:1fr}
 }
-/* Mobile polish: layout mais compacto, legivel e sem vazamentos laterais */
-@media(max-width:760px){
-  html,body{width:100%;max-width:100%;overflow-x:hidden}
-  body{background:
-    radial-gradient(520px 360px at 70% -8%,rgba(124,77,255,.22),transparent 62%),
-    linear-gradient(180deg,#070b18 0%,#050814 100%)}
-  .main{width:100%;max-width:100vw;padding:12px 10px calc(92px + env(safe-area-inset-bottom,0px))}
-  .top{position:sticky;top:0;z-index:60;margin:-12px -10px 14px;padding:10px 10px 12px;
-    display:grid;grid-template-columns:1fr;gap:9px;background:linear-gradient(180deg,rgba(7,11,24,.98),rgba(7,11,24,.86));
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
-  .month{display:grid;grid-template-columns:40px 40px minmax(0,1fr) 40px;gap:8px;width:100%;align-items:center}
-  .month h2{min-width:0;font-size:22px;line-height:1.05;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .round,.iconbtn{width:40px;height:40px;border-radius:14px;font-size:18px;background:rgba(13,20,41,.82)}
-  .status{display:grid;grid-template-columns:40px 40px 40px minmax(0,1fr);gap:8px;width:100%;align-items:center}
-  .status .primary{width:100%;height:42px;padding:0 12px;border-radius:14px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .page-title{font-size:26px;line-height:1.08;margin:12px 0 8px;letter-spacing:-.02em}
-  .page>.subtitle{font-size:12.5px;line-height:1.45;margin-bottom:14px!important}
-  .panel,.impact-card,.catblock{border-radius:18px;box-shadow:0 10px 28px rgba(0,0,0,.22);background:linear-gradient(160deg,rgba(16,24,48,.86),rgba(8,13,29,.94))}
-  .panel{margin-bottom:12px}
-  .head{padding:14px 14px 9px;gap:9px;align-items:flex-start}
-  .head .title,.title{font-size:16px;line-height:1.18}
-  .subtitle{font-size:11.5px;line-height:1.35}
-  .kpi-grid{gap:10px;margin-bottom:12px}
-  .kpi{min-height:102px;padding:13px 14px;border-radius:17px}
-  .klabel{font-size:12px;gap:8px}
-  .ic{width:26px;height:26px;border-radius:10px}
-  .kval{font-size:clamp(24px,7vw,30px);line-height:1;margin:10px 0 5px;letter-spacing:-.02em}
-  .ksub,.badge{font-size:11.5px}
-  .bar{margin-top:10px}
-  .conta-tots,.contas,.actions,.compare,.insights,.recbox,.detail,.txlist,.filters,.goals,.highlights,.report-options,.dre-kpis,.dre-mobile{padding-left:12px;padding-right:12px}
-  .actions{gap:9px}
-  .action{display:grid;grid-template-columns:42px minmax(0,1fr) 20px;gap:10px;padding:10px 11px;border-radius:15px}
-  .action .aic{width:42px;height:42px;border-radius:13px;font-size:21px}
-  .action b{font-size:13.5px;line-height:1.18}
-  .action span{font-size:11.5px;line-height:1.35}
-  .action em{font-size:22px;align-self:center}
-  .donut-wrap,.home-money-grid .donut-wrap{padding:8px 12px 14px;gap:10px}
-  .donut,.home-money-grid .donut{width:min(210px,66vw);height:min(210px,66vw)}
-  .donut-center b{font-size:24px}
-  .legend{border-radius:15px;padding:10px}
-  .leg,.home-money-grid .leg{grid-template-columns:14px minmax(0,1fr) 36px!important;gap:7px;font-size:11.5px}
-  .best{max-width:calc(100% - 24px);margin:0 12px 14px;padding:10px;border-radius:14px}
-  .impact-head{padding:14px 14px 4px}
-  .impact-line{padding:8px 12px 14px;gap:8px}
-  .impact-item{padding:10px 11px;border-radius:14px}
-  .impact-item strong{font-size:18px;line-height:1.05}
-  .impact-item span{white-space:normal;line-height:1.3}
-  .cash-equation{padding:2px 12px 14px;gap:8px}
-  .cash-step{min-height:64px;padding:11px 12px;border-radius:15px}
-  .cash-step b{font-size:20px;white-space:normal;line-height:1.08}
-  .flow-table{padding:0 12px 14px;max-height:none;overflow:visible}
-  .flow-mini{padding:0 12px 10px}
-  .flow-row{min-width:0;grid-template-columns:58px minmax(0,1fr);gap:7px 10px;padding:11px 0}
-  .flow-row.headrow{display:none}
-  .flow-row strong{font-size:12.5px;text-align:left}
-  .flow-row strong:nth-of-type(1){grid-column:2}
-  .flow-row strong:nth-of-type(2),.flow-row strong:nth-of-type(3){grid-column:2}
-  .flow-desc b{white-space:normal;line-height:1.18}
-  .flow-date{font-size:13px}
-  .comp,.cmp-card{grid-template-columns:36px minmax(0,1fr);gap:9px;padding:10px 11px;border-radius:14px}
-  .comp strong,.cmp-card strong{grid-column:2;text-align:left;font-size:13px}
-  .comp p,.cmp-card p{white-space:normal;line-height:1.3}
-  .drow{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:10px;border-radius:14px}
-  .drow .d-amt{grid-column:2;text-align:left;font-size:15px}
-  .catblock>summary{padding:13px 12px;align-items:flex-start}
-  .catblock>summary strong{font-size:18px!important;text-align:right;max-width:44%;line-height:1.1}
-  .cbtitle{font-size:16px;line-height:1.15}
-  .cbsub{font-size:11.5px;line-height:1.28}
-  .conta,.conta-tot{border-radius:14px}
-  .conta{grid-template-columns:36px minmax(0,1fr) auto;gap:9px;padding:10px}
-  .conta strong,.conta-tot strong{font-size:15px;line-height:1.05}
-  .conta-tot{grid-template-columns:36px minmax(0,1fr) auto;padding:10px}
-  .conta-tot .d-ic{width:36px;height:36px;border-radius:12px}
-  .rec{grid-template-columns:24px minmax(0,1fr);gap:8px}
-  .rec strong{grid-column:2;text-align:left;margin-top:2px}
-  .recbox-home .rec{grid-template-columns:24px minmax(0,1fr)}
-  .recbox-home .rec strong{grid-column:2;text-align:left}
-  .hl{min-height:112px;padding:13px;border-radius:15px}
-  .hico{font-size:24px;margin-bottom:8px}
-  .filters{gap:8px}
-  .search,.select{width:100%;height:42px}
-  .tx{grid-template-columns:36px minmax(0,1fr) auto 32px;gap:9px}
-  .txi{width:36px;height:36px;border-radius:12px}
-  .tx b{font-size:13px}
-  .tx p{font-size:11px}
-  .tx strong{font-size:13px}
-  .report-card{min-height:78px;padding:12px;gap:10px;border-radius:15px}
-  .report-card .aic{width:42px;height:42px;border-radius:13px;font-size:21px}
-  .report-card b{font-size:14px;line-height:1.15}
-  .report-card span{font-size:11.5px}
-  .dre-month-card{border-radius:14px}
-  .dre-month-card h3{padding:11px 12px;gap:10px}
-  .dre-month-row{padding:8px 12px;font-size:12px}
-  .dialog{border-radius:20px;max-height:88vh}
-}
-@media(max-width:380px){
-  .main{padding-left:8px;padding-right:8px}
-  .top{margin-left:-8px;margin-right:-8px;padding-left:8px;padding-right:8px}
-  .month{grid-template-columns:38px 38px minmax(0,1fr) 38px}
-  .round,.iconbtn{width:38px;height:38px}
-  .status{grid-template-columns:38px 38px 38px minmax(0,1fr)}
-  .status .primary{font-size:12px;padding:0 10px}
-  .kval{font-size:clamp(22px,7.4vw,28px)}
-  .catblock>summary strong{max-width:40%;font-size:16px!important}
-  .botnav button>small{font-size:8.6px}
-}
-/* Responsividade global: componentes densos viram cards legiveis no celular */
-@media(max-width:760px){
-  :root{--mobile-gap:10px}
-  html{background:#050814}
-  body{min-height:100dvh}
-  *{min-width:0}
-  .page{width:100%;max-width:100%}
-  .top{position:relative!important;top:auto!important}
-  .grid,.two,.three,.wide-left,.subgrid,.home-money-grid{grid-template-columns:1fr!important;gap:12px}
-  .head{display:grid!important;grid-template-columns:1fr;align-items:start!important;padding:14px 12px 10px}
-  .head>div{min-width:0}
-  .head>.mini,.head>.primary,.head>.dre-actions{width:100%;justify-self:stretch}
-  .head>.mini,.head>.primary{height:42px;text-align:center}
-  .head>strong{justify-self:start;text-align:left;margin-top:2px;font-size:clamp(18px,5.4vw,24px)!important;line-height:1.05;white-space:normal!important;overflow-wrap:anywhere}
-  .page-title{font-size:clamp(24px,7vw,30px);line-height:1.08;overflow-wrap:anywhere}
-  .page>.subtitle{max-width:100%;overflow-wrap:anywhere}
-  .primary,.mini,.select,.search,.inp{max-width:100%}
-
-  .dsum{padding:0 12px 12px!important;gap:7px}
-  .dchip,.flow-mini .dchip{width:100%;justify-content:space-between;line-height:1.25;white-space:normal}
-  .flow-mini{display:grid;grid-template-columns:1fr;gap:7px;padding:0 12px 12px}
-
-  .cash-equation{grid-template-columns:1fr!important}
-  .cash-step{min-height:0;padding:12px}
-  .cash-step b{font-size:clamp(20px,6vw,25px);white-space:normal;overflow-wrap:anywhere}
-
-  .flow-table{overflow:visible!important}
-  .flow-row{display:grid!important;min-width:0!important;grid-template-columns:48px minmax(0,1fr)!important;gap:8px 10px;padding:12px;border:1px solid var(--line2);border-radius:14px;background:#101a33;margin-bottom:9px}
-  .flow-row.headrow{display:none!important}
-  .flow-date{grid-row:1/5;align-self:start;width:48px;min-height:36px;border-radius:12px;background:#0d1429;display:grid;place-items:center;font-size:12px}
-  .flow-desc{grid-column:2}
-  .flow-desc b{font-size:13px;line-height:1.18;white-space:normal!important;overflow:visible}
-  .flow-desc small{line-height:1.35}
-  .flow-chip{display:inline-flex;margin:3px 4px 0 0}
-  .flow-row strong{grid-column:2!important;display:flex;justify-content:space-between;gap:10px;text-align:right;font-size:13px;line-height:1.2;white-space:normal}
-  .flow-row strong::before{color:#8fa0cf;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
-  .flow-row strong:nth-of-type(1)::before{content:"Entrada"}
-  .flow-row strong:nth-of-type(2)::before{content:"Saida"}
-  .flow-row strong:nth-of-type(3)::before{content:"Saldo"}
-
-  .compare{gap:8px}
-  .comp,.cmp-card{grid-template-columns:36px minmax(0,1fr)!important;align-items:start}
-  .comp .ci,.cmp-card .ci{grid-row:1/3}
-  .comp b,.cmp-card b{line-height:1.18;overflow-wrap:anywhere}
-  .comp p,.cmp-card p{white-space:normal!important;overflow:visible;line-height:1.32}
-  .comp strong,.cmp-card strong{grid-column:2!important;justify-self:start;text-align:left!important;margin-top:2px;white-space:normal;overflow-wrap:anywhere;font-size:13.5px}
-
-  .rec{grid-template-columns:28px minmax(0,1fr)!important;align-items:start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.055)}
-  .rec:last-child{border-bottom:0}
-  .rec b{white-space:normal!important;line-height:1.18;overflow:visible}
-  .rec small{white-space:normal;line-height:1.3}
-  .rec strong{grid-column:2!important;justify-self:start;text-align:left!important;white-space:normal;overflow-wrap:anywhere}
-  .rbar{grid-column:1/3}
-
-  .insights{grid-template-columns:1fr!important;gap:8px}
-  .insight{display:grid;grid-template-columns:30px minmax(0,1fr);padding:11px}
-  .insight b{font-size:13px;line-height:1.18;overflow-wrap:anywhere}
-  .insight p{font-size:11.5px;line-height:1.34;overflow-wrap:anywhere}
-
-  .catblock{margin-bottom:10px}
-  .catblock>summary{display:grid!important;grid-template-columns:minmax(0,1fr) 22px;gap:8px 10px;padding:12px}
-  .catblock>summary>div:first-child{grid-column:1;display:grid!important;grid-template-columns:40px minmax(0,1fr);gap:10px!important;align-items:start!important;width:100%}
-  .catblock>summary>div:first-child .d-ic{width:40px!important;height:40px!important;border-radius:13px!important}
-  .catblock>summary::after{grid-column:2;grid-row:1/3;align-self:center;justify-self:end}
-  .catblock>summary strong{grid-column:1!important;justify-self:start;text-align:left!important;max-width:100%!important;margin-left:50px;font-size:clamp(17px,5.2vw,21px)!important;white-space:normal!important;overflow-wrap:anywhere}
-  .cbtitle{display:block;font-size:15.5px!important;line-height:1.15;white-space:normal;overflow-wrap:anywhere}
-  .cbsub{font-size:11px!important;line-height:1.3;white-space:normal;overflow-wrap:anywhere}
-  .detail{gap:8px;padding:0 10px 12px!important}
-  .drow{grid-template-columns:34px minmax(0,1fr)!important;align-items:start;padding:10px;border-radius:13px}
-  .drow b{display:block;font-size:12.5px;line-height:1.18;white-space:normal;overflow-wrap:anywhere}
-  .drow small{line-height:1.3;white-space:normal}
-  .d-tag{display:inline-flex;margin:4px 0 0 0;vertical-align:middle}
-  .drow .d-amt{grid-column:2!important;justify-self:start;text-align:left!important;margin-top:2px;font-size:15px;white-space:normal;overflow-wrap:anywhere}
-  .bcat{width:100%;height:36px;margin-top:8px}
-
-  .conta,.conta-tot{grid-template-columns:36px minmax(0,1fr)!important;align-items:start;gap:9px;padding:10px;border-radius:14px}
-  .conta b,.conta-tot b{white-space:normal!important;line-height:1.18;overflow:visible;overflow-wrap:anywhere}
-  .conta small,.conta-tot small{line-height:1.3;white-space:normal}
-  .conta strong,.conta-tot strong{grid-column:2!important;justify-self:start;text-align:left;white-space:normal;overflow-wrap:anywhere;font-size:15px}
-  .conta .conf,.conta .undo{grid-column:2!important;width:calc(100% - 44px);justify-self:start;margin-top:2px}
-  .conta .delc{grid-column:2!important;justify-self:end;margin-top:-42px}
-
-  .txlist{max-height:none;overflow:visible}
-  .tx{grid-template-columns:36px minmax(0,1fr) 32px!important;align-items:start;border:1px solid rgba(255,255,255,.065);border-radius:13px;background:#101a33;padding:10px;margin-bottom:8px}
-  .tx b{white-space:normal!important;line-height:1.18;overflow:visible;overflow-wrap:anywhere}
-  .tx p{white-space:normal;line-height:1.3}
-  .tx strong{grid-column:2!important;justify-self:start;text-align:left;white-space:normal;overflow-wrap:anywhere;font-size:14px}
-  .tx button{grid-column:3!important;grid-row:1/3}
-
-  .budget{grid-template-columns:34px minmax(0,1fr)!important;align-items:start}
-  .budget .b-input{grid-column:2;width:100%}
-  .b-top{display:grid;grid-template-columns:1fr;gap:2px}
-  .b-top span{white-space:normal}
-
-  .chart-head-clean{display:grid!important;grid-template-columns:1fr!important}
-  .chart-head-clean .select{width:100%}
-  .charts{padding:0 10px 14px;overflow-x:auto}
-  .chart-svg{min-width:340px;height:220px}
-  .pace-advice{margin:0 10px 12px;padding:10px;overflow-wrap:anywhere}
-
-  .impact-line{grid-template-columns:1fr!important}
-  .impact-item strong,.impact-item span,.impact-action{white-space:normal;overflow:visible}
-  .dre-kpis{grid-template-columns:1fr!important}
-  .dre-kpi b{white-space:normal;overflow-wrap:anywhere}
-  .dre-month-card h3{display:grid;grid-template-columns:1fr;gap:4px}
-  .dre-month-row{display:grid;grid-template-columns:1fr;gap:3px}
-  .dre-month-row span{white-space:normal;overflow:visible}
-  .dre-month-row b{white-space:normal;overflow-wrap:anywhere}
-  .report-card{display:grid!important;grid-template-columns:42px minmax(0,1fr) 18px;align-items:start}
-  .report-card span{line-height:1.32}
-
-  .modal{padding:10px}
-  .dialog{width:100%;max-width:100%;border-radius:18px}
-  .db{padding:14px}
-  .icon-picker{grid-template-columns:repeat(5,1fr)}
-  .catgrid{grid-template-columns:1fr!important}
-}
-@media(max-width:420px){
-  .main{padding-left:8px;padding-right:8px}
-  .top{margin-left:-8px;margin-right:-8px}
-  .month{grid-template-columns:36px 36px minmax(0,1fr) 36px}
-  .status{grid-template-columns:36px 36px 36px minmax(0,1fr)}
-  .round,.iconbtn{width:36px;height:36px;border-radius:12px}
-  .month h2{font-size:20px}
-  .status .primary{height:38px;font-size:11.5px;padding:0 8px}
-  .kpi{padding:12px}
-  .kval{font-size:clamp(21px,6.5vw,27px)}
-  .catblock>summary strong{margin-left:50px;font-size:17px!important}
-  .chart-svg{min-width:320px}
-}
-.filepicker-ios{position:fixed;left:0;top:0;width:1px;height:1px;opacity:.01;z-index:-1}
 </style>
 <script src="vendor/pdf.min.js"></script>
 <script>try{if(window.pdfjsLib)pdfjsLib.GlobalWorkerOptions.workerSrc='vendor/pdf.worker.min.js'}catch(e){}</script>
@@ -500,7 +284,7 @@
   <main class="main">
     <div class="top">
       <div class="month"><button class="round" id="prev">‹</button><button class="round" id="todayBtn">🗓️</button><h2 id="monthLabel">—</h2><button class="round" id="next">›</button></div>
-      <div class="status"><button class="iconbtn bell" id="bell" title="Notificações">🔔<sup id="bellCount" class="hidden">0</sup></button><button class="iconbtn privacy-btn" id="privacyBtn" title="Ativar modo privacidade" aria-label="Ativar modo privacidade" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5c2.1 3.1 4.8 4.7 8 4.7s5.9-1.6 8-4.7"/><path d="M5.4 12.2 3.8 14M8.4 14l-.8 2.3M12 14.2V17M15.6 14l.8 2.3M18.6 12.2l1.6 1.8"/></svg></button><button class="iconbtn" id="gear" title="Configurações">⚙️</button><button class="primary" id="importBtn">Importar OFX/CSV/PDF</button><input type="file" id="ofxFile" class="filepicker-ios" multiple></div>
+      <div class="status"><button class="iconbtn bell" id="bell" title="Notificações">🔔<sup id="bellCount" class="hidden">0</sup></button><button class="iconbtn privacy-btn" id="privacyBtn" title="Ativar modo privacidade" aria-label="Ativar modo privacidade" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5c2.1 3.1 4.8 4.7 8 4.7s5.9-1.6 8-4.7"/><path d="M5.4 12.2 3.8 14M8.4 14l-.8 2.3M12 14.2V17M15.6 14l.8 2.3M18.6 12.2l1.6 1.8"/></svg></button><button class="iconbtn" id="gear" title="Configurações">⚙️</button><button class="primary" id="importBtn">Importar OFX/CSV/PDF</button><input type="file" id="ofxFile" accept=".ofx,.csv,.pdf,application/x-ofx,text/csv,application/pdf" multiple hidden></div>
     </div>
     <section class="empty" id="emptyState"><div class="e">📥</div><h2>Importe seu extrato OFX/CSV/PDF</h2><p>O painel começa vazio. Ao importar OFX, CSV ou PDF, a MR Finance lê entradas, saídas, saldo real, categorias, recorrências e gráficos sem criar dados de exemplo.</p><button class="primary" id="emptyImport">Importar OFX/CSV/PDF</button></section>
 
@@ -995,10 +779,7 @@ function parseCsvDate(v){v=(''+(v??'')).trim();let m=v.match(/^(\d{4})[-/](\d{1,
 function parseCSV(text){text=(text||'').replace(/^\uFEFF/,'').replace(/\r/g,'').trim();if(!text)return [];const lines=text.split('\n').filter(l=>l.trim());if(!lines.length)return [];const sep=(lines[0].match(/;/g)||[]).length>=(lines[0].match(/,/g)||[]).length?';':',';const headers=splitCsvLine(lines[0],sep).map(h=>norm(h));const idx=(names)=>headers.findIndex(h=>names.some(n=>h.includes(n)));const iDate=idx(['data','date','dt']);const iDesc=idx(['descricao','historico','memo','nome','lancamento','transacao']);const iVal=idx(['valor','amount','quantia']);const iType=idx(['tipo','type','entrada saida']);const iCat=idx(['categoria','category']);if(iDate<0||iVal<0){toast('CSV não reconhecido: precisa ter colunas de data e valor.');return []}const out=[];for(let r=1;r<lines.length;r++){const cols=splitCsvLine(lines[r],sep);const date=parseCsvDate(cols[iDate]);let val=parseMoney(cols[iVal]);if(!date||!val)continue;let tipo=val>=0?'receita':'despesa';if(iType>=0){const tv=norm(cols[iType]);if(tv.includes('desp')||tv.includes('saida')||tv.includes('debito'))tipo='despesa';if(tv.includes('rece')||tv.includes('entrada')||tv.includes('credito'))tipo='receita';}const desc=(iDesc>=0&&cols[iDesc]?cols[iDesc].trim():`Lançamento CSV ${r}`);let c=catOf(desc,tipo);if(iCat>=0&&cols[iCat]){const cn=norm(cols[iCat]);const found=cats.find(x=>norm(x.name)===cn||x.id===cn||norm(x.name).includes(cn));if(found)c=found;}const base='csv:'+date+'_'+Math.abs(val)+'_'+norm(desc);out.push({id:base,date,tipo,valor:Math.abs(val),memo:desc,desc:titleName(desc.toLowerCase()),cat:c.id,interno:!!c.interno});}return out}
 async function importFiles(files){files=[...files].filter(f=>/\.(ofx|csv|pdf)$/i.test(f.name));if(!files.length){toast('Selecione um arquivo OFX, CSV ou PDF.');return}let added=0,dups=0,last='';const ids=new Set(state.tx.map(t=>t.id));for(const f of files){let arr=[];try{if(/\.pdf$/i.test(f.name)){arr=await parsePDF(f);}else{const buf=await f.arrayBuffer();let text=new TextDecoder('utf-8').decode(buf);if(text.includes('�'))text=new TextDecoder('iso-8859-1').decode(buf);arr=/\.csv$/i.test(f.name)?parseCSV(text):parseOFX(text);}}catch(e){console.error(e);toast('Falha ao ler '+f.name);continue;}arr.forEach(t=>{if(ids.has(t.id)){dups++}else{state.tx.push(t);ids.add(t.id);added++;if(t.date>last)last=t.date}})}if(last)view=new Date(+last.slice(0,4),+last.slice(5,7)-1,1);state.seenNotifications=false;save();showPage('visao');render();toast(added+' transação(ões) importada(s)'+(dups?' · '+dups+' duplicada(s) ignorada(s)':''));$('#ofxFile').value=''}
 function download(name,content,type='application/json'){const a=document.createElement('a');const url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function bindImportInput(inp){if(!inp)return;inp.onchange=e=>importFiles(e.target.files)}
-bindImportInput($('#ofxFile'));
-function openImportPicker(){let input=$('#ofxFile');if(!input){input=document.createElement('input');input.type='file';input.id='ofxFile';input.multiple=true;input.className='filepicker-ios';document.body.appendChild(input);bindImportInput(input)}input.value='';input.removeAttribute('hidden');input.classList.add('filepicker-ios');input.click()}
-$('#importBtn').onclick=$('#importBtn2').onclick=$('#quickImport').onclick=$('#emptyImport').onclick=openImportPicker;document.body.ondragover=e=>{e.preventDefault()};document.body.ondrop=e=>{e.preventDefault();importFiles(e.dataTransfer.files)};
+$('#importBtn').onclick=$('#importBtn2').onclick=$('#quickImport').onclick=$('#emptyImport').onclick=()=>$('#ofxFile').click();$('#ofxFile').onchange=e=>importFiles(e.target.files);document.body.ondragover=e=>{e.preventDefault()};document.body.ondrop=e=>{e.preventDefault();importFiles(e.dataTransfer.files)};
 $('#prev').onclick=()=>{view.setMonth(view.getMonth()-1);render()};$('#next').onclick=()=>{view.setMonth(view.getMonth()+1);render()};$('#todayBtn').onclick=()=>{const d=new Date();view=new Date(d.getFullYear(),d.getMonth(),1);render()};$$('.yearSelect').forEach(s=>s.onchange=e=>{view=new Date(+e.target.value,view.getMonth(),1);render()});$$('.evoSelect').forEach(s=>{s.value=evoMode;s.onchange=e=>{evoMode=e.target.value;renderEvolution('evolutionFull')}});
 $('#search').oninput=e=>{search=e.target.value;renderTransactions()};$('#type').onchange=e=>{type=e.target.value;renderTransactions()};$('#catFilter').onchange=e=>{catFilter=e.target.value;renderTransactions()};var _pf=$('#periodF');if(_pf)_pf.onchange=e=>{period=e.target.value;renderTransactions()};var _ef=$('#entityF');if(_ef)_ef.onchange=e=>{entityF=e.target.value;renderTransactions()};
 $('#themeBtn').onclick=$('#cfgTheme').onclick=()=>{state.theme=state.theme==='light'?'dark':'light';save();render()};if($('#privacyBtn'))$('#privacyBtn').onclick=()=>{state.privacy=!state.privacy;save();render();toast(state.privacy?'Modo privacidade ativado':'Modo privacidade desativado')};$('#gear').onclick=()=>$('#configModal').classList.add('open');$('#bell').onclick=()=>{state.seenNotifications=true;save();renderNotifs();$('#notifModal').classList.add('open')};$('#scoreDetails').onclick=()=>showPage('analises');$('#quickMeta').onclick=$('#addGoalBtn').onclick=()=>openGoal();if($('#addGoalHomeBtn'))$('#addGoalHomeBtn').onclick=()=>openGoal();$('#seeRec').onclick=()=>showPage('transacoes');if($('#recHomeBtn'))$('#recHomeBtn').onclick=()=>{showPage('fluxo');setTimeout(()=>$('#fluxRecurringPanel')?.scrollIntoView({behavior:'smooth',block:'start'}),50)};$('#wealthBtn').onclick=()=>showPage('analises');

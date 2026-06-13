@@ -1,5 +1,5 @@
 /* MR Finance — service worker (offline-first) */
-const CACHE = 'mrfinance-v7';
+const CACHE = 'mrfinance-v77';
 const ASSETS = [
   './',
   'index.html',
@@ -27,18 +27,6 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
-  const isNavigation = req.mode === 'navigate';
-  const isIndex = new URL(req.url).pathname.endsWith('/index.html');
-  if (isNavigation || isIndex) {
-    e.respondWith(
-      fetch(req).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put('index.html', copy));
-        return res;
-      }).catch(() => caches.match('index.html'))
-    );
-    return;
-  }
   e.respondWith(
     caches.match(req).then((hit) => {
       if (hit) return hit;

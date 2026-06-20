@@ -1,5 +1,5 @@
 /* MR Finance — service worker (offline-first) */
-const CACHE = 'mrfinance-v77';
+const CACHE = 'mrfinance-v78';
 const ASSETS = [
   './',
   'index.html',

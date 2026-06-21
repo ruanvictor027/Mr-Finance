@@ -913,7 +913,7 @@
       <button data-page="metas">🎯 Metas</button>
       <button data-page="transacoes">☷ Transações</button>
       <button data-page="analises">📈 Análises</button>
-      <button data-page="relatorios">📋 Relatórios</button>
+      <button data-page="relatorios">📊 Relatórios e Gráficos</button>
       <button data-page="destino" style="height:auto;min-height:48px;line-height:1.2;text-align:left">💸 Para onde foi seu dinheiro?</button>
       <button data-page="lancamentos">📌 Lançamentos</button>
       <button data-page="patrimonio">🏛️ Patrimônio</button>
@@ -993,7 +993,7 @@
 <aside class="gl-side"><div class="catm-card" id="glDonut"></div><div class="catm-card" id="glAchievements"></div><div class="catm-card gl-tips"><div class="catm-det-head"><h3>💡 Dicas para alcançar suas metas</h3></div><div class="gl-tip-list"><p>📅 Faça aportes recorrentes — constância vale mais que valor.</p><p>🔍 Revise suas metas mensalmente e ajuste o que for preciso.</p><p>⏳ Defina prazos realistas para não desanimar no caminho.</p><p>🔒 Evite saques do valor já reservado para a meta.</p></div></div></aside></div></section></section>
     <section class="page" id="page-transacoes"><h2 class="page-title">☷ Transações importadas</h2><section class="panel"><div class="head"><div><h2 class="title">Conferir importação e ajustar categorias</h2><p class="subtitle">Clique no lápis para alterar uma categoria.</p></div><button class="primary" id="importBtn2">Importar OFX/CSV/PDF</button></div><div class="filters"><input class="search" id="search" placeholder="Buscar transação..."><select class="select" id="type"><option value="">Todos</option><option value="receita">Entradas</option><option value="despesa">Saídas</option></select><select class="select" id="catFilter"><option value="">Todas categorias</option></select><select class="select" id="periodF"><option value="mes">Este mês</option><option value="3m">Últimos 3 meses</option><option value="ano">Este ano</option><option value="tudo">Tudo</option></select><select class="select" id="entityF"><option value="">Pessoas e empresas</option><option value="pessoa">👤 Pessoas</option><option value="empresa">🏢 Empresas</option></select></div><div class="dsum" id="txStats" style="padding:0 18px 12px"></div><div class="txlist" id="transactions"></div></section></section>
     <section class="page" id="page-analises"><h2 class="page-title">📈 Análises</h2><div class="grid two"><section class="panel"><div class="head chart-head-clean"><div class="chart-head-title"><h2 class="title">📊 Evolução mensal</h2><p class="subtitle">Entradas, saídas e resultado.</p></div><select class="select evoSelect"><option value="mensal">Mensal</option><option value="semanal">Semanal</option><option value="quinzenal">Quinzenal</option><option value="diaria">Diária</option></select><select class="select yearSelect"></select></div><div class="charts"><svg id="evolutionFull" class="chart-svg" viewBox="0 0 380 220"></svg></div></section><section class="panel"><div class="head chart-head-clean"><div class="chart-head-title"><h2 class="title">🛡️ Orçamento do mês</h2><p class="subtitle">Quanto do limite recomendado já foi usado.</p></div></div><div class="charts"><svg id="dailyFull" class="chart-svg" viewBox="0 0 380 220"></svg></div><div class="pace-advice" id="dailyAdvice"></div></section></div><section class="panel" style="margin-top:14px"><div class="head"><div><h2 class="title">💡 Insights e recomendações</h2><p class="subtitle">Ações rápidas e análise automática dos seus dados.</p></div></div><div class="an-sub">⚡ Ações recomendadas</div><div class="actions" id="actions"></div><div class="an-sub" style="margin-top:18px">🔎 Análise automática</div><div class="insights" id="insights"></div></section></section>
-    <section class="page" id="page-relatorios"><h2 class="page-title">📋 Relatórios</h2><section class="panel" style="margin-bottom:14px"><div class="head"><div><h2 class="title">Relatórios financeiros</h2><p class="subtitle">Abra relatórios em tela grande para visualizar melhor os dados.</p></div><div class="dre-actions"><select class="select" id="dreYear"></select><button class="mini" id="exportDreCsv">Exportar DRE CSV</button></div></div><div class="report-options"><button class="report-card" id="openDreFull"><span class="aic">📄</span><div><b>DRE - Demonstrativo de Resultado</b><span>Receitas, despesas e resultado por mês. Abre em visualização grande.</span></div><em>›</em></button><button class="report-card" id="openRepAnual"><span class="aic">📅</span><div><b>Resumo anual</b><span>Entradas, saídas e resultado mês a mês do ano selecionado.</span></div><em>›</em></button><button class="report-card" id="openRepCat"><span class="aic">🏷️</span><div><b>Gastos por categoria</b><span>Ranking de quanto cada categoria consumiu no ano.</span></div><em>›</em></button></div><div id="dreBox" class="dre-hidden-render"></div></section><section class="panel"><div class="head"><h2 class="title">Exportações e backup</h2></div><div class="actions"><button class="action blue" id="exportJson"><span class="aic">⇩</span><div><b>Exportar backup completo</b><span>Transações, saldos, categorias e metas em JSON.</span></div><em>›</em></button><button class="action green" id="exportCsv"><span class="aic">📄</span><div><b>Exportar transações em CSV</b><span>Arquivo para Excel/Google Sheets.</span></div><em>›</em></button><button class="action purple" id="importBackup"><span class="aic">☁</span><div><b>Importar backup</b><span>Restaurar dados salvos anteriormente.</span></div><em>›</em></button><input type="file" id="backupFile" accept="application/json" hidden></div></section></section>
+    <section class="page" id="page-relatorios"><h2 class="page-title">📊 Relatórios e Gráficos</h2><section class="panel" style="margin-bottom:14px"><div class="head"><div><h2 class="title">Relatórios financeiros</h2><p class="subtitle">Abra relatórios em tela grande para visualizar melhor os dados.</p></div><div class="dre-actions"><select class="select" id="dreYear"></select><button class="mini" id="exportDreCsv">Exportar DRE CSV</button></div></div><div class="report-options"><button class="report-card" id="openDreFull"><span class="aic">📄</span><div><b>DRE - Demonstrativo de Resultado</b><span>Receitas, despesas e resultado por mês. Abre em visualização grande.</span></div><em>›</em></button><button class="report-card" id="openRepAnual"><span class="aic">📅</span><div><b>Resumo anual</b><span>Entradas, saídas e resultado mês a mês do ano selecionado.</span></div><em>›</em></button><button class="report-card" id="openRepCat"><span class="aic">🏷️</span><div><b>Gastos por categoria</b><span>Ranking de quanto cada categoria consumiu no ano.</span></div><em>›</em></button></div><div id="dreBox" class="dre-hidden-render"></div></section><section class="panel graphs-panel" id="graphsPanel"><div class="head"><div><h2 class="title">📊 Gráficos</h2><p class="subtitle">Visualizações para decisão — atualizam automaticamente conforme seus lançamentos e o mês selecionado.</p></div></div><div class="gr-tabs" id="grTabs" role="tablist"><button class="gr-tab active" type="button" data-graph="poupanca">📈 Poupança</button><button class="gr-tab" type="button" data-graph="projecao">🔮 Projeção de caixa</button><button class="gr-tab" type="button" data-graph="orcado">🍩 Por categoria</button><button class="gr-tab" type="button" data-graph="heatmap">🗓️ Mapa de gastos</button><button class="gr-tab" type="button" data-graph="composicao">🧱 Composição</button></div><div class="gr-body" id="grBody"><div class="gr-empty">Carregando gráficos…</div></div></section><section class="panel"><div class="head"><h2 class="title">Exportações e backup</h2></div><div class="actions"><button class="action blue" id="exportJson"><span class="aic">⇩</span><div><b>Exportar backup completo</b><span>Transações, saldos, categorias e metas em JSON.</span></div><em>›</em></button><button class="action green" id="exportCsv"><span class="aic">📄</span><div><b>Exportar transações em CSV</b><span>Arquivo para Excel/Google Sheets.</span></div><em>›</em></button><button class="action purple" id="importBackup"><span class="aic">☁</span><div><b>Importar backup</b><span>Restaurar dados salvos anteriormente.</span></div><em>›</em></button><input type="file" id="backupFile" accept="application/json" hidden></div></section></section>
     <section class="page" id="page-destino"><h2 class="page-title">💸 Para onde foi seu dinheiro?</h2><p class="subtitle" style="margin:-8px 0 16px">Todas as saídas do mês, detalhadas por categoria e por quem recebeu. Clique numa categoria para ver cada transação e alterar a categoria individualmente. Use a busca para filtrar.</p><input class="search" id="destSearch" placeholder="Buscar nome ou categoria..." autocomplete="off" style="margin:0 0 14px;max-width:380px"><div id="destinoBox"></div><h2 class="page-title" style="margin-top:24px">🤑 De onde veio o dinheiro?</h2><p class="subtitle" style="margin:-8px 0 16px">Todas as entradas do mês, detalhadas por categoria e por origem. Clique numa categoria para ver cada transação e alterar a categoria individualmente.</p><div id="origemBox"></div></section>
 <section class="page" id="page-lancamentos"><h2 class="page-title">📌 Lançamentos</h2><p class="subtitle lanc-page-subtitle">Centro de gestão de contas previstas, parcelas, recorrências e compromissos futuros. O valor só entra no caixa real depois da confirmação.</p><div class="lanc-hero lanc-decision-hero">
   <section class="lanc-decision-panel">
@@ -1145,7 +1145,7 @@
   <button data-page="metas"><i>🎯</i><span>Metas</span></button>
   <button data-page="transacoes"><i>☷</i><span>Transações</span></button>
   <button data-page="analises"><i>📈</i><span>Análises</span></button>
-  <button data-page="relatorios"><i>📋</i><span>Relatórios</span></button>
+  <button data-page="relatorios"><i>📊</i><span>Relatórios e Gráficos</span></button>
   <button data-page="destino"><i>💸</i><span>Para onde foi</span></button>
   <button data-page="lancamentos"><i>📌</i><span>Lançamentos</span></button>
   <button data-page="patrimonio"><i>🏛️</i><span>Patrimônio</span></button>
@@ -1350,7 +1350,7 @@ function render(){applyCategorySettings();document.body.dataset.theme=state.them
  if(P('categorias')){try{renderCatManager()}catch(_e){console.error('[renderCatManager]',_e)}}
  if(P('lancamentos')){try{renderLancamentos()}catch(_e){console.error('[render]',_e)}}
  if(P('visao')||P('patrimonio')){try{renderPatrimonio()}catch(_e){console.error('[render]',_e)}}
- if(P('relatorios')){try{renderDRE()}catch(_e){console.error('[renderDRE]',_e)}}try{updateScore()}catch(_e){console.error('[render]',_e)}try{renderNotifs()}catch(_e){console.error('[render]',_e)}applyPrivacyMask()}
+ if(P('relatorios')){try{renderDRE()}catch(_e){console.error('[renderDRE]',_e)}try{renderGraphs()}catch(_e){console.error('[renderGraphs]',_e)}}try{updateScore()}catch(_e){console.error('[render]',_e)}try{renderNotifs()}catch(_e){console.error('[render]',_e)}applyPrivacyMask()}
 function renderActions(a){const dias=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();const falta=Math.max(0,a.in*.20-a.net);const limite=a.in>0?a.in*.8/dias:0;const mediaDia=a.out/dias;const positivo=a.net>=0;const rpct=state.reservePct||50,rval=+state.reserveValor||0,mesReserva=rval>0?rval:Math.max(0,a.net)*rpct/100;const html=`<button class="action green" data-action="guardar"><span class="aic">🐷</span><div><b>${positivo?'Guarde '+money(mesReserva)+' este mês':'Defina sua reserva'}</b><span>${rval>0?'valor fixo definido por você':rpct+'% da sobra deste mês'} · clique para ajustar</span></div><em>›</em></button><button class="action blue" data-action="ajustar"><span class="aic">📊</span><div><b>${falta>0?'Para poupar 20%, faltam '+money(falta):'Meta de 20% de poupança atingida'}</b><span>Veja para onde foi seu dinheiro e onde cortar.</span></div><em>›</em></button><button class="action orange" data-action="analise"><span class="aic">⚡</span><div><b>${positivo?'Você gastou menos que ganhou':'Atenção: saídas acima das entradas'}</b><span>${positivo?'Abra as análises para manter o controle.':'Revise categorias e gastos recorrentes.'}</span></div><em>›</em></button><button class="action purple" data-action="limite"><span class="aic">🗓️</span><div><b>${limite>0?'Limite sugerido: '+money(limite)+'/dia':'Sem entradas para calcular o limite'}</b><span>${limite>0?'Seu gasto médio atual é '+money(mediaDia)+'/dia.':'Importe um mês com entradas.'}</span></div><em>›</em></button>`;$('#actions').innerHTML=html;$$('[data-action]').forEach(b=>b.onclick=()=>handleAction(b.dataset.action,a,limite));}
 function renderSmartSummary(a,p){const box=$('#smartSummary');if(!box)return;const k=monthKey(),dias=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();const hoje=new Date();const mesAtual=monthKey(new Date(hoje.getFullYear(),hoje.getMonth(),1))===k;const diaBase=mesAtual?Math.min(dias,hoje.getDate()):dias;const faltam=Math.max(1,dias-diaBase+1);const pend=state.tx.filter(t=>t.pending&&t.date&&t.date.slice(0,7)===k);const aPagar=pend.filter(t=>t.tipo==='despesa').reduce((s,t)=>s+t.valor,0);const aReceber=pend.filter(t=>t.tipo==='receita').reduce((s,t)=>s+t.valor,0);const rpct=state.reservePct||50,rval=+state.reserveValor||0,reserva=rval>0?rval:Math.max(0,a.net)*rpct/100;const saldoProjetado=runningBalance(k)+aReceber-aPagar;const livre=saldoProjetado-reserva;const limite=livre>0?livre/faltam:0;const pct=a.in?a.net/a.in*100:0;const out=mtx(k).filter(t=>t.tipo==='despesa'&&!t.interno);const by={};out.forEach(t=>by[t.cat]=(by[t.cat]||0)+t.valor);let top=Object.entries(by).sort((x,y)=>y[1]-x[1])[0];let topCat=top?(cats.find(c=>c.id===top[0])||cats.at(-1)):null;box.innerHTML=(`<article class="impact-card"><div class="impact-head"><h3>🧠 Leitura rápida</h3><p>Um resumo simples para entender o mês sem abrir todos os relatórios.</p></div><div class="impact-line"><div class="impact-item"><small>Situação</small><strong class="${a.net>=0?'up':'down'}">${a.net>=0?'Positiva':'Atenção'}</strong><span>Entrou ${money(a.in)} · saiu ${money(a.out)}</span></div><div class="impact-item"><small>Dinheiro livre</small><strong class="num ${livre>=0?'up':'down'}">${money(livre)}</strong><span>${faltam} dia(s) · ${money(limite)}/dia</span></div><div class="impact-item"><small>Maior gasto</small><strong>${topCat?topCat.icon+' '+money(top[1]):'—'}</strong><span>${topCat?topCat.name:'Sem saídas'}</span></div><div class="impact-item"><small>Prioridade</small><button class="impact-action" data-smart="${topCat?'destino':'transacoes'}">${topCat?'Revisar '+topCat.name:'Ver transações'}</button><span>Poupança ${Math.round(pct||0)}% · reserva ${money(reserva)}</span></div></div></article>`);box.querySelectorAll('[data-smart]').forEach(b=>b.onclick=()=>showPage(b.dataset.smart));}
 function handleAction(action,a,limite){if(action==='guardar'){openReserve();return}if(action==='ajustar'){showPage('categorias');toast('Estas são suas categorias de saída — decida onde cortar.');return}if(action==='analise'){showPage('analises');toast(a.net>=0?'Confira os indicadores para manter o controle.':'Revise os pontos de atenção.');return}if(action==='limite'){showPage('analises');toast(limite>0?'Compare seu gasto por dia com o limite de '+money(limite)+'/dia.':'Importe um mês com entradas para calcular.');return}}
@@ -2120,10 +2120,9 @@ function renderCatManager(){
    const ina=catIsInactive(c),tp=catTypeOf(c),used=usage[c.id]||0;
    return `<div class="catm-row ${c.id===catmUI.sel?'sel':''} ${ina?'ina':''}" data-catm-sel="${c.id}" title="Clique para ver os detalhes">`+
      `<span class="catm-ic" style="background:color-mix(in srgb,${catColorOf(c)} 20%,#0d1429)">${esc(c.icon||'🏷️')}</span>`+
-     `<div class="catm-info"><b>${esc(c.name)}</b><small>${used>0?used+' lançamento(s) · <b style="color:'+(tp==='receita'?'#22e68b':'#ff7a9b')+';font-weight:800">'+money(usageVal[c.id]||0)+'</b>':esc(catDescOf(c))}</small></div>`+
+     `<div class="catm-info"><b>${esc(c.name)}</b><small>${esc(catDescOf(c))}</small></div>`+
      `<span class="catm-pill ${tp}">${tp==='receita'?'Receita':'Despesa'}</span>`+
      `<span class="catm-pill ${ina?'off':'onp'}">${ina?'Inativa':'Ativa'}</span>`+
-     `<span class="catm-uses" title="${used} transação(ões) usando esta categoria">${used}</span>`+
      `<div class="catm-acts">`+
        `<button type="button" data-catm-edit="${c.id}" title="Editar categoria">✏️</button>`+
        `<button type="button" data-catm-dup="${c.id}" title="Duplicar categoria">⧉</button>`+
@@ -2832,6 +2831,158 @@ function renderFlowTimeline(){
  box.innerHTML=`<div class="flow-mini"><span class="dchip flow-start">Saldo inicial: <b>${money(start)}</b></span><span class="dchip flow-count"><b>${tx.length}</b> movimento(s)</span><span class="dchip flow-end">Saldo final: <b>${money(acc)}</b></span></div><div class="flow-row headrow"><span>Data</span><span>Dia da semana</span><span style="text-align:right">Entrada</span><span style="text-align:right">Saída</span><span style="text-align:right">Saldo após</span></div>${rows}`;
  box.querySelectorAll('.flow-row.flow-day').forEach(row=>{row.onclick=e=>{if(e.target.closest('select,button,input'))return;const d=row.dataset.flowDay;if(renderFlowTimeline.open.has(d))renderFlowTimeline.open.delete(d);else renderFlowTimeline.open.add(d);renderFlowTimeline();};});
  box.querySelectorAll('[data-flow-cat]').forEach(sel=>{sel.onchange=e=>{e.stopPropagation();const id=sel.dataset.flowCat;const t=state.tx.find(x=>x.id===id);if(!t){toast('Transação não encontrada.');return}persistTxCategory(t,sel.value);};});
+}
+
+/* ===================================================================
+   RELATÓRIOS E GRÁFICOS (2026-06-20) — 5 gráficos SVG nativos.
+   Vivem dentro da IIFE para ter acesso a months/agg/mtx/runningBalance/
+   detAvg/pendingTotalsForMonth/view/cats/money. Chamados por render()
+   no ramo de 'relatorios' → atualizam sozinhos com cada movimentação.
+   =================================================================== */
+let graphTab='poupanca';
+const GR_PAL=['#7c4dff','#2787ff','#22e68b','#ffb238','#ff416d','#20d6d2','#9d6bff','#ff6fa3'];
+function grMonthLabel(k){return new Date(k+'-01T00:00:00').toLocaleDateString('pt-BR',{month:'short'}).replace('.','');}
+function grK(v){const a=Math.abs(v);const sg=v<0?'-':'';if(a>=1000000)return sg+(a/1000000).toFixed(1).replace('.',',')+'M';if(a>=1000)return sg+(a/1000).toFixed(a>=10000?0:1).replace('.',',')+'k';return String(Math.round(v));}
+function grEmpty(msg){return `<div class="gr-empty"><div class="gr-empty-ic">📭</div><p>${msg}</p></div>`;}
+// 1) Evolução da taxa de poupança
+function grPoupanca(){
+ const a=agg(),curK=monthKey();
+ if(!a.in&&!a.out)return grEmpty('Sem lançamentos em '+monthName(view,{month:'long',year:'numeric'})+' para medir a poupança.');
+ const cur={k:curK,net:a.net},rate=a.in>0?(a.net/a.in*100):0;
+ const prior=months().filter(m=>m.k<=curK&&(m.in>0||m.out>0)),last12=prior.slice(-12);
+ const avg=last12.length?Math.round(last12.reduce((s,m)=>s+(m.in>0?m.net/m.in*100:0),0)/last12.length):Math.round(rate);
+ const trend=last12.length>=2?(rate-(last12[0].in>0?last12[0].net/last12[0].in*100:0)):0;
+ const W=760,H=336,cx=380,cy=248,Rr=190,sw=30,MIN=-20,MAX=60;
+ const clamp=v=>Math.max(MIN,Math.min(MAX,v));
+ const ang=v=>180-((clamp(v)-MIN)/(MAX-MIN))*180;
+ const pt=(d,r)=>[cx+r*Math.cos(d*Math.PI/180),cy-r*Math.sin(d*Math.PI/180)];
+ const arc=(from,to,r,steps)=>{let p='';for(let i=0;i<=steps;i++){const d=from+(to-from)*i/steps,q=pt(d,r);p+=(i?'L':'M')+q[0].toFixed(1)+','+q[1].toFixed(1);}return p;};
+ const col=rate>=20?'#22e68b':rate>=0?'#ffb238':'#ff416d';
+ const bg=`<path d="${arc(180,0,Rr,64)}" fill="none" stroke="#172238" stroke-width="${sw}" stroke-linecap="round"/>`;
+ const val=`<path d="${arc(180,ang(rate),Rr,64)}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`;
+ const m1=pt(ang(20),Rr-sw/2-3),m2=pt(ang(20),Rr+sw/2+3);
+ const meta=`<line x1="${m1[0].toFixed(1)}" y1="${m1[1].toFixed(1)}" x2="${m2[0].toFixed(1)}" y2="${m2[1].toFixed(1)}" stroke="#9d6bff" stroke-width="3"/><text x="${m2[0].toFixed(1)}" y="${(m2[1]-7).toFixed(1)}" fill="#b7a2ff" font-size="11" font-weight="800" text-anchor="middle">meta 20%</text>`;
+ const pv=pt(ang(rate),Rr),dot=`<circle cx="${pv[0].toFixed(1)}" cy="${pv[1].toFixed(1)}" r="9" fill="${col}" stroke="#0b1225" stroke-width="3"/>`;
+ const lo=pt(180,Rr),hi=pt(0,Rr);
+ const ends=`<text x="${lo[0].toFixed(1)}" y="${(lo[1]+22).toFixed(1)}" fill="#5b6b92" font-size="10" text-anchor="middle">${MIN}%</text><text x="${hi[0].toFixed(1)}" y="${(hi[1]+22).toFixed(1)}" fill="#5b6b92" font-size="10" text-anchor="middle">+${MAX}%</text>`;
+ const center=`<text x="${cx}" y="${cy-34}" fill="${col}" font-size="60" font-weight="800" text-anchor="middle">${Math.round(rate)}%</text><text x="${cx}" y="${cy-4}" fill="#aab7df" font-size="14" text-anchor="middle">poupança · ${grMonthLabel(cur.k)}</text><text x="${cx}" y="${cy+20}" fill="#7e8db5" font-size="12" text-anchor="middle">resultado ${money(cur.net)}</text>`;
+ const cls=rate>=20?'good':rate>=0?'warn':'bad';
+ const note=`<div class="gr-note ${cls}">Este mês você ${rate>=0?'poupou <b>'+Math.round(rate)+'%</b> das entradas':'gastou <b>'+Math.abs(Math.round(rate))+'%</b> além das entradas'}. Média dos últimos meses: <b>${avg}%</b> · ${trend>=0?'tendência de melhora ▲':'tendência de queda ▼'}. A marca roxa é a meta saudável de 20%.</div>`;
+ return `<svg class="gr-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${bg}${val}${meta}${dot}${ends}${center}</svg>${note}`;
+}
+// 2) Projeção de caixa 30/60/90 com cenários
+function grProjecao(){
+ const a=agg(),realEnd=runningBalance(monthKey());
+ const p=(typeof pendingTotalsForMonth==='function')?pendingTotalsForMonth():{in:0,out:0,count:0};
+ const base=realEnd+((p.in||0)-(p.out||0));
+ const avgIn=detAvg('in',6),avgOut=detAvg('out',6);
+ if(!avgIn&&!avgOut&&!a.in&&!a.out)return grEmpty('Sem histórico suficiente para projetar o caixa. Importe ou registre alguns meses de movimento.');
+ const scN=avgIn-avgOut,scO=avgIn*1.1-avgOut*0.9,scP=avgIn*0.9-avgOut*1.1;
+ const xs=['Hoje','30 dias','60 dias','90 dias'],ser=n=>[0,1,2,3].map(i=>base+n*i);
+ const oti=ser(scO),neu=ser(scN),pes=ser(scP),all=[...oti,...neu,...pes,0];
+ const max=Math.max(...all),min=Math.min(...all),span=Math.max(1,max-min);
+ const W=760,H=320,L=60,R=18,T=30,B=46,iw=W-L-R,ih=H-T-B;
+ const y=v=>T+ih-((v-min)/span)*ih;
+ const groupW=iw/4,barW=30,ig=5;
+ let grid='';[0,0.25,0.5,0.75,1].forEach(f=>{const vv=min+span*f;grid+=`<line x1="${L}" y1="${y(vv).toFixed(1)}" x2="${W-R}" y2="${y(vv).toFixed(1)}" stroke="#1c294b" stroke-dasharray="3 5"/><text x="${L-6}" y="${(y(vv)+3).toFixed(1)}" fill="#5b6b92" font-size="9.5" text-anchor="end">${grK(vv)}</text>`;});
+ const zero=(min<0&&max>0)?`<line x1="${L}" y1="${y(0).toFixed(1)}" x2="${W-R}" y2="${y(0).toFixed(1)}" stroke="#ff416d" stroke-width="1.5" stroke-dasharray="7 4"/><text x="${(L+2).toFixed(1)}" y="${(y(0)-5).toFixed(1)}" fill="#ff9bb2" font-size="9.5" font-weight="800">zero</text>`:'';
+ const baseLn=`<line x1="${L}" y1="${y(base).toFixed(1)}" x2="${W-R}" y2="${y(base).toFixed(1)}" stroke="#9d6bff" stroke-width="1.1" stroke-dasharray="5 5" opacity="0.7"/>`;
+ const SC=['#22e68b','#2787ff','#ff416d'],SN=['Otimista','Neutro','Pessimista'];
+ const groups=[['Hoje',[base],['#9d6bff'],['Saldo de hoje']],['30 dias',[oti[1],neu[1],pes[1]],SC,SN],['60 dias',[oti[2],neu[2],pes[2]],SC,SN],['90 dias',[oti[3],neu[3],pes[3]],SC,SN]];
+ let bars='';
+ groups.forEach((grp,g)=>{const lab=grp[0],vals=grp[1],cols=grp[2],nms=grp[3],cluster=vals.length*barW+(vals.length-1)*ig,gx=L+groupW*(g+0.5),cs=gx-cluster/2;
+  vals.forEach((v,si)=>{const bx=cs+si*(barW+ig),yv=y(v),y0=y(0),ry=Math.min(yv,y0),rh=Math.max(1,Math.abs(yv-y0));
+   bars+=`<rect x="${bx.toFixed(1)}" y="${ry.toFixed(1)}" width="${barW}" height="${rh.toFixed(1)}" rx="3" fill="${cols[si]}"><title>${lab} · ${nms[si]}: ${money(v)}</title></rect>`;
+   bars+=`<text x="${(bx+barW/2).toFixed(1)}" y="${(v>=0?ry-4:ry+rh+11).toFixed(1)}" fill="${v<0?'#ff9bb2':'#cbd6f5'}" font-size="8.5" font-weight="700" text-anchor="middle">${grK(v)}</text>`;});
+  bars+=`<text x="${gx.toFixed(1)}" y="${H-15}" fill="${g===0?'#b7a2ff':'#abb6df'}" font-size="10.5" font-weight="${g===0?'800':'700'}" text-anchor="middle">${lab}</text>`;});
+ const svg=`<svg class="gr-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${grid}${zero}${baseLn}${bars}</svg>`;
+ const legend=`<div class="gr-legend-row"><span class="gr-leg"><i style="background:#22e68b"></i>Otimista</span><span class="gr-leg"><i style="background:#2787ff"></i>Neutro (provável)</span><span class="gr-leg"><i style="background:#ff416d"></i>Pessimista</span><span class="gr-leg"><i style="background:#9d6bff"></i>Saldo de hoje</span></div>`;
+ const negIdx=pes.findIndex(v=>v<0),cls=pes[3]<0?'bad':neu[3]<0?'warn':'good';
+ const txt=pes[3]<0?`No cenário <b>pessimista</b> o caixa fica negativo ${negIdx>0?'em ~'+(negIdx*30)+' dias':'já de início'} (${money(pes[3])} em 90d). Reforce a reserva ou antecipe recebíveis.`:neu[3]<0?`No cenário <b>neutro</b> o caixa tende a ${money(neu[3])} em 90 dias — atenção.`:`Projeção saudável: mesmo no pessimista o caixa fica em ${money(pes[3])} em 90 dias.`;
+ return `${svg}${legend}<div class="gr-note ${cls}">Começa no <b>saldo de hoje</b> (${money(base)}, já com previstos do mês) e projeta 30/60/90 dias em 3 cenários pela sua média de 6 meses. ${txt}</div>`;
+}
+// 3) Orçado x Realizado por categoria
+function grOrcado(){
+ const cur=mtx().filter(t=>t.tipo==='despesa'&&!t.interno);
+ const spent={};cur.forEach(t=>spent[t.cat]=(spent[t.cat]||0)+t.valor);
+ const ids=Object.keys(spent).filter(k=>spent[k]>0);
+ if(!ids.length)return grEmpty('Sem despesas lançadas neste mês para mostrar por categoria.');
+ const total=ids.reduce((a,id)=>a+spent[id],0)||1;
+ const curK=monthKey();
+ const priorMonths=months().filter(m=>m.k<curK);
+ const avgOf=id=>{const vals=priorMonths.map(m=>state.tx.filter(t=>t&&!t.pending&&!t.interno&&t.tipo==='despesa'&&t.cat===id&&t.date&&t.date.slice(0,7)===m.k).reduce((s,t)=>s+t.valor,0)).filter(v=>v>0);return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;};
+ let rows=ids.map(id=>{const c=cats.find(x=>x.id===id)||cats.at(-1);const s=spent[id];const avg=avgOf(id);return {c,s,share:s/total*100,vs:(avg!=null&&avg>0)?(s/avg-1)*100:null};});
+ rows.sort((a,b)=>b.s-a.s);rows=rows.slice(0,10);
+ const ring=(r,i)=>{const Rr=34,C=2*Math.PI*Rr,p=Math.min(100,Math.max(4,r.share)),off=C*(1-p/100);
+  const col=GR_PAL[i%GR_PAL.length];
+  const tag=r.vs==null?'<span class="gr-ring-tag new">novo</span>':r.vs>8?`<span class="gr-ring-tag up">▲ ${Math.round(r.vs)}% vs média</span>`:r.vs<-8?`<span class="gr-ring-tag down">▼ ${Math.abs(Math.round(r.vs))}% vs média</span>`:'<span class="gr-ring-tag flat">≈ na média</span>';
+  return `<div class="gr-ring-card vivid" style="--rc:${col}"><svg viewBox="0 0 84 84" class="gr-ring" role="img" aria-label="${esc(r.c.name)}: ${money(r.s)}, ${Math.round(r.share)}% do total"><circle cx="42" cy="42" r="${Rr}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="9"/><circle cx="42" cy="42" r="${Rr}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 42 42)"/><text x="42" y="40" text-anchor="middle" font-size="16" font-weight="800" fill="${col}">${Math.round(r.share)}%</text><text x="42" y="55" text-anchor="middle" font-size="8.5" fill="#9fb0de">do total</text></svg><div class="gr-ring-name">${esc(r.c.icon)} ${esc(shortDesc(r.c.name,15))}</div><div class="gr-ring-val">${money(r.s)}</div>${tag}</div>`;};
+ const top=rows[0],subiu=rows.filter(r=>r.vs!=null&&r.vs>15);
+ const note=`<div class="gr-note">Lido direto dos seus <b>lançamentos/OFX</b> — sem precisar configurar orçamentos. O anel é a fatia da categoria no total de despesas do mês; a etiqueta compara com a sua <b>média dos meses anteriores</b> (▲ gastou mais · ▼ gastou menos). ${top?'Maior gasto: <b>'+esc(top.c.name)+'</b> ('+money(top.s)+').':''}${subiu.length?' Acima do normal: <b>'+subiu.map(r=>esc(r.c.name)).join(', ')+'</b>.':''}</div>`;
+ return `<div class="gr-rings">${rows.map((r,i)=>ring(r,i)).join('')}</div>${note}`;
+}
+// 4) Mapa de calor de gastos (calendário do mês)
+function grHeatmap(){
+ const yy=view.getFullYear(),mm=view.getMonth(),dim=new Date(yy,mm+1,0).getDate();
+ const out=mtx().filter(t=>t.tipo==='despesa'&&!t.interno);
+ if(!out.length)return grEmpty('Sem despesas neste mês para o mapa de calor.');
+ const dayOut=Array(dim+1).fill(0);out.forEach(t=>{const d=+(t.date||'').slice(8,10);if(d>=1&&d<=dim)dayOut[d]+=t.valor;});
+ const max=Math.max(...dayOut.slice(1)),monthTotal=dayOut.reduce((a,b)=>a+b,0),activeDays=dayOut.slice(1).filter(v=>v>0).length;
+ const wdNames=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],wdTot=Array(7).fill(0);
+ for(let d=1;d<=dim;d++)wdTot[new Date(yy,mm,d).getDay()]+=dayOut[d];
+ const W=760,gap=8,cw=(W-6*gap)/7,chh=54,top=26;
+ let row=0;const cells=[];for(let d=1;d<=dim;d++){const wd=new Date(yy,mm,d).getDay();if(d>1&&wd===0)row++;cells.push({d,wd,row});}
+ const gridBottom=top+(row+1)*(chh+gap),topDay=dayOut.indexOf(max),maxWdIdx=wdTot.indexOf(Math.max(...wdTot));
+ let svg=wdNames.map((n,i)=>`<text x="${(i*(cw+gap)+cw/2).toFixed(1)}" y="16" fill="#8fa0cb" font-size="11" font-weight="800" text-anchor="middle">${n}</text>`).join('');
+ cells.forEach(({d,wd,row})=>{const cx=wd*(cw+gap),cy=top+row*(chh+gap),v=dayOut[d],f=max>0?v/max:0,isTop=d===topDay&&v>0;
+  const bg=v>0?`rgba(255,65,109,${(0.10+f*0.62).toFixed(2)})`:'rgba(255,255,255,.025)',bd=isTop?'#ffd54a':(v>0?`rgba(255,65,109,${(0.30+f*0.5).toFixed(2)})`:'rgba(255,255,255,.08)');
+  svg+=`<g><rect x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" width="${cw.toFixed(1)}" height="${chh}" rx="11" fill="${bg}" stroke="${bd}" stroke-width="${isTop?2:1}"><title>Dia ${d}: ${money(v)}</title></rect><text x="${(cx+9).toFixed(1)}" y="${(cy+19).toFixed(1)}" fill="#dbe3ff" font-size="12" font-weight="800">${String(d).padStart(2,'0')}</text>${v>0?`<text x="${(cx+9).toFixed(1)}" y="${(cy+37).toFixed(1)}" fill="#ffc2d0" font-size="10" font-weight="700">${grK(v)}</text>`:''}</g>`;});
+ const wdTop=gridBottom+22,wdMax=Math.max(...wdTot,1),wdBarMax=46;
+ svg+=`<text x="0" y="${(gridBottom+10).toFixed(1)}" fill="#cbd6f5" font-size="11" font-weight="800">Total por dia da semana</text>`;
+ wdNames.forEach((n,i)=>{const cx=i*(cw+gap)+cw/2,bh=Math.max(1,(wdTot[i]/wdMax)*wdBarMax),by=wdTop+wdBarMax-bh,col=i===maxWdIdx?'#ff416d':'#7c4dff';
+  svg+=`<rect x="${(cx-16).toFixed(1)}" y="${by.toFixed(1)}" width="32" height="${bh.toFixed(1)}" rx="4" fill="${col}"><title>${n}: ${money(wdTot[i])}</title></rect><text x="${cx.toFixed(1)}" y="${(wdTop+wdBarMax+13).toFixed(1)}" fill="#8fa0cb" font-size="9.5" text-anchor="middle">${n}</text>`;});
+ const H=wdTop+wdBarMax+22;
+ const sw=[0.12,0.30,0.48,0.66,0.82].map(a=>`<i style="background:rgba(255,65,109,${a})"></i>`).join('');
+ const legend=`<div class="gr-heat-legend"><span>menos</span>${sw}<span>mais</span><span class="gr-heat-top">▣ dia mais pesado</span></div>`;
+ const topWd=wdNames[maxWdIdx],avgDay=activeDays?monthTotal/activeDays:0;
+ const note=`<div class="gr-note">Total gasto no mês: <b>${money(monthTotal)}</b> em <b>${activeDays}</b> dia(s) com movimento (≈ ${money(avgDay)}/dia ativo). Dia mais pesado: <b>${String(topDay).padStart(2,'0')}</b> (${money(max)}, contornado em dourado) · você costuma gastar mais às <b>${topWd}</b>.</div>`;
+ return `<svg class="gr-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${svg}</svg>${legend}${note}`;
+}
+// 5) Composição das despesas no tempo (empilhado por categoria)
+function grComposicao(){
+ const curK=monthKey();
+ const ms=months().filter(m=>m.out>0&&m.k<=curK).slice(-6);
+ if(ms.length<2)return grEmpty('Sem meses suficientes com despesas para mostrar a composição ao longo do tempo.');
+ const monthCat=ms.map(m=>{const by={};state.tx.filter(t=>t&&!t.pending&&!t.interno&&t.tipo==='despesa'&&t.date&&t.date.slice(0,7)===m.k).forEach(t=>by[t.cat]=(by[t.cat]||0)+t.valor);return {k:m.k,by,out:m.out};});
+ const totalBy={};monthCat.forEach(mc=>Object.entries(mc.by).forEach(([id,v])=>totalBy[id]=(totalBy[id]||0)+v));
+ const topIds=Object.entries(totalBy).sort((a,b)=>b[1]-a[1]).slice(0,5).map(e=>e[0]);
+ const W=760,H=320,L=54,R=18,T=22,B=46,iw=W-L-R,ih=H-T-B,maxOut=Math.max(...monthCat.map(mc=>mc.out),1);
+ const gap=iw/monthCat.length,bw=Math.min(72,gap-18),y=v=>T+ih-(v/maxOut)*ih;
+ let grid='';[0,0.5,1].forEach(f=>{grid+=`<line x1="${L}" y1="${y(maxOut*f).toFixed(1)}" x2="${W-R}" y2="${y(maxOut*f).toFixed(1)}" stroke="#1c294b" stroke-dasharray="3 5"/><text x="${L-6}" y="${(y(maxOut*f)+3).toFixed(1)}" fill="#5b6b92" font-size="9.5" text-anchor="end">${grK(maxOut*f)}</text>`;});
+ let bars='';monthCat.forEach((mc,i)=>{const cx=L+gap*i+gap/2,bx=cx-bw/2;let acc=0;
+  topIds.forEach((id,ci)=>{const v=mc.by[id]||0;if(v<=0)return;const h=(v/maxOut)*ih;bars+=`<rect x="${bx.toFixed(1)}" y="${y(acc+v).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${GR_PAL[ci%GR_PAL.length]}"><title>${esc((cats.find(c=>c.id===id)||{}).name||'—')} · ${grMonthLabel(mc.k)}: ${money(v)}</title></rect>`;acc+=v;});
+  const known=topIds.reduce((s,id)=>s+(mc.by[id]||0),0),other=Math.max(0,mc.out-known);
+  if(other>0){const h=(other/maxOut)*ih;bars+=`<rect x="${bx.toFixed(1)}" y="${y(acc+other).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="#3a4a6b"><title>Outros · ${grMonthLabel(mc.k)}: ${money(other)}</title></rect>`;}
+  bars+=`<text x="${cx.toFixed(1)}" y="${H-16}" fill="#abb6df" font-size="10.5" text-anchor="middle">${grMonthLabel(mc.k)}</text>`;});
+ const legend=topIds.map((id,ci)=>`<span class="gr-leg"><i style="background:${GR_PAL[ci%GR_PAL.length]}"></i>${esc(shortDesc((cats.find(c=>c.id===id)||{}).name||'—',16))}</span>`).join('')+`<span class="gr-leg"><i style="background:#3a4a6b"></i>Outros</span>`;
+ const f0=monthCat[0],f1=monthCat[monthCat.length-1],c1=topIds[0],v0=f0.by[c1]||0,v1=f1.by[c1]||0,nm=(cats.find(c=>c.id===c1)||{}).name||'—';
+ const grow=v0>0?`A maior categoria (${esc(nm)}) foi de ${money(v0)} para ${money(v1)} (${v1>=v0?'+':''}${Math.round((v1/v0-1)*100)}%) entre ${grMonthLabel(f0.k)} e ${grMonthLabel(f1.k)}.`:'Acompanhe como o peso de cada categoria evolui mês a mês.';
+ return `<svg class="gr-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${grid}${bars}</svg><div class="gr-legend-row">${legend}</div><div class="gr-note">Cada barra é o total de despesas do mês, empilhado pelas maiores categorias. ${grow}</div>`;
+}
+function renderGraphs(){
+ const body=document.getElementById('grBody');if(!body)return;
+ const tabs=document.getElementById('grTabs');
+ if(tabs&&!tabs.__wired){tabs.__wired=1;tabs.addEventListener('click',e=>{const b=e.target.closest('[data-graph]');if(!b)return;graphTab=b.getAttribute('data-graph');renderGraphs();});}
+ let html;
+ if(mtx().length===0){
+  html=grEmpty('Sem lançamentos em <b>'+monthName(view,{month:'long',year:'numeric'})+'</b>. Selecione um mês com movimentações para ver os gráficos.');
+ }else{
+  try{html=graphTab==='projecao'?grProjecao():graphTab==='orcado'?grOrcado():graphTab==='heatmap'?grHeatmap():graphTab==='composicao'?grComposicao():grPoupanca();}
+  catch(e){console.error('[renderGraphs]',e);html=grEmpty('Não foi possível montar este gráfico agora. Seus dados estão preservados.');}
+ }
+ body.innerHTML=html;
+ if(tabs)tabs.querySelectorAll('.gr-tab').forEach(x=>x.classList.toggle('active',x.getAttribute('data-graph')===graphTab));
+ try{applyPrivacyMask()}catch(_){}
 }
 
 render();
@@ -4764,7 +4915,7 @@ try{ if(typeof render==='function') render(); }catch(e){ console.warn('QA render
 .catm-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.92fr)}
 .catm-left{border-right:1px solid rgba(255,255,255,.07);padding:12px 14px;display:flex;flex-direction:column;min-width:0}
 .catm-list{display:flex;flex-direction:column;gap:8px;max-height:66vh;overflow:auto;padding-right:4px}
-.catm-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto auto auto;gap:10px;align-items:center;border:1px solid var(--line2);border-radius:13px;background:#101a33;padding:9px 11px;cursor:pointer;transition:border-color .15s,transform .12s,box-shadow .15s}
+.catm-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto auto;gap:10px;align-items:center;border:1px solid var(--line2);border-radius:13px;background:#101a33;padding:9px 11px;cursor:pointer;transition:border-color .15s,transform .12s,box-shadow .15s}
 .catm-row:hover{border-color:#3a4f7a;transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
 .catm-row.sel{border-color:#7b43ff;background:rgba(124,77,255,.10)}
 .catm-row.ina{opacity:.6}
@@ -5578,6 +5729,49 @@ try{ if(typeof render==='function') render(); }catch(e){ console.warn('QA render
 @media(max-width:374px){
   #page-fluxo .compare{grid-template-columns:1fr!important}
   .insights{grid-template-columns:1fr!important}
+}
+
+/* ============================================================================
+   RELATÓRIOS E GRÁFICOS (2026-06-20): estilo do submenu "Gráficos" e dos 5
+   gráficos SVG nativos. Foco desktop; no mobile o SVG ocupa 100% e cabe.
+   ============================================================================ */
+.graphs-panel .gr-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 12px}
+.gr-tab{height:40px;border:1px solid var(--line2);border-radius:12px;background:#0d1429;color:#cbd6ff;font-weight:800;font-size:13px;padding:0 14px;cursor:pointer;transition:.15s;white-space:nowrap}
+.gr-tab:hover{border-color:#406299;color:#fff}
+.gr-tab.active{background:linear-gradient(90deg,#5b31dc,#7b43ff);color:#fff;border-color:#7b43ff;box-shadow:0 8px 20px rgba(91,49,220,.3)}
+.gr-tab:focus-visible{outline:2px solid #8e59ff;outline-offset:2px}
+.gr-body{padding:6px 18px 20px}
+.gr-svg{width:100%;height:auto;display:block;background:#0b1225;border:1px solid var(--line2);border-radius:16px;padding:10px}
+.gr-note{margin-top:12px;padding:11px 14px;border:1px solid var(--line2);border-radius:13px;background:#101a33;color:#cbd6f5;font-size:12.5px;line-height:1.45}
+.gr-note b{color:var(--txt);font-weight:800}
+.gr-note.good{border-color:rgba(34,230,139,.4);background:rgba(34,230,139,.07)}
+.gr-note.warn{border-color:rgba(255,178,56,.4);background:rgba(255,178,56,.07)}
+.gr-note.bad{border-color:rgba(255,65,109,.4);background:rgba(255,65,109,.07)}
+.gr-legend-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;padding:0 2px}
+.gr-leg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cbd6f5;font-weight:700}
+.gr-leg i{width:12px;height:12px;border-radius:4px;display:inline-block;flex:0 0 auto}
+.gr-empty{padding:46px 18px;text-align:center;color:#9fb0de;line-height:1.5}
+.gr-empty-ic{font-size:40px;margin-bottom:10px}
+.gr-rings{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;background:#0b1225;border:1px solid var(--line2);border-radius:16px;padding:16px}
+.gr-ring-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 6px;border:1px solid rgba(255,255,255,.05);border-radius:14px;background:#101a33}
+.gr-ring{width:84px;height:84px}
+.gr-ring-name{font-size:12.5px;font-weight:800;color:#dbe3ff;margin-top:8px;line-height:1.2}
+.gr-ring-sub{font-size:11px;color:#9fb0de;margin-top:3px}
+.gr-ring-card.vivid{background:color-mix(in srgb,var(--rc) 12%,#101a33);border-color:color-mix(in srgb,var(--rc) 34%,var(--line2));padding:10px 6px 11px}
+.gr-ring-val{font-size:13px;font-weight:900;color:#eef3ff;margin-top:4px}
+.gr-ring-tag{display:inline-block;margin-top:6px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:9px;line-height:1.3}
+.gr-ring-tag.up{background:rgba(255,65,109,.16);color:#ff9bb2}
+.gr-ring-tag.down{background:rgba(34,230,139,.16);color:#7ef0b6}
+.gr-ring-tag.flat{background:rgba(255,255,255,.07);color:#aab7df}
+.gr-ring-tag.new{background:rgba(124,77,255,.18);color:#c3a8ff}
+.gr-heat-legend{display:flex;align-items:center;gap:5px;margin-top:10px;font-size:11px;color:#9fb0de;flex-wrap:wrap}
+.gr-heat-legend i{width:18px;height:12px;border-radius:3px;display:inline-block}
+.gr-heat-legend .gr-heat-top{margin-left:10px;color:#e7c24a;font-weight:800}
+@media(max-width:760px){
+  .gr-rings{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));padding:12px}
+  .graphs-panel .gr-tabs{padding-left:12px;padding-right:12px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .gr-tab{height:42px;font-size:12.5px;flex:0 0 auto}
+  .gr-body{padding-left:12px;padding-right:12px}
 }
 </style>
 <script>

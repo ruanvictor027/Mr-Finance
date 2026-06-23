@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<title>MR Finance — Mobile</title>
+<meta name="description" content="MR Finance Mobile — painel financeiro pessoal otimizado para celular." />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#070b18" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mobile.css?v=11" />
+<!-- PWA: instalável e offline (mobile apenas; desktop não é afetado) -->
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+<link rel="icon" type="image/svg+xml" href="icon.svg" />
+<meta name="application-name" content="MR Finance" />
+<meta name="apple-mobile-web-app-title" content="MR Finance" />
+</head>
+<body data-theme="dark">
+
+<!-- ===== App bar ===== -->
+<header class="m-appbar">
+  <div class="m-appbar-top">
+    <div class="m-brand"><img class="m-logo" src="icon-192.png" alt="MR Finance" width="34" height="34" /><b>MR Finance</b></div>
+    <button class="m-iconbtn" id="mPrivacy" aria-label="Privacidade" title="Ocultar valores">🙈</button>
+    <button class="m-iconbtn" id="mDesktop" aria-label="Abrir versão desktop" title="Versão desktop">🖥️</button>
+  </div>
+  <div class="m-month">
+    <button class="m-mbtn" id="mPrev" aria-label="Mês anterior">‹</button>
+    <h1 id="mMonthLabel">—</h1>
+    <button class="m-mbtn" id="mNext" aria-label="Próximo mês">›</button>
+  </div>
+</header>
+
+<!-- ===== Conteúdo (host dinâmico de telas) ===== -->
+<main class="m-main" id="mView"></main>
+
+<!-- ===== Bottom nav ===== -->
+<nav class="m-botnav" id="mBotnav">
+  <button data-go="visao" class="on"><i>🏠</i><small>Início</small></button>
+  <button data-go="transacoes"><i>☷</i><small>Transações</small></button>
+  <div class="m-fab"><button id="mAdd" aria-label="Novo lançamento">＋</button></div>
+  <button data-go="graficos"><i>📊</i><small>Gráficos</small></button>
+  <button data-go="mais"><i>☰</i><small>Mais</small></button>
+</nav>
+
+<!-- ===== Bottom sheet (modal) ===== -->
+<div class="m-sheet-backdrop" id="mBackdrop"></div>
+<div class="m-sheet" id="mSheet" role="dialog" aria-modal="true">
+  <div class="m-sheet-grab"></div>
+  <div id="mSheetBody"></div>
+</div>
+
+<div class="m-toast" id="mToast"></div>
+
+<script src="mr-core.js?v=3"></script>
+<script src="mobile.js?v=9"></script>
+<script>
+/* Registra o service worker (só sob http/https; file:// não suporta SW). */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('service-worker.js').catch(function () { /* offline indisponível, app segue normal */ });
+  });
+}
+</script>
+</body>
+</html>

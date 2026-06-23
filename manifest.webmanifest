@@ -1,22 +1,22 @@
 {
-  "name": "MR Finance — Painel Financeiro",
+  "name": "MR Finance",
   "short_name": "MR Finance",
-  "description": "Painel financeiro pessoal: importa extratos OFX/CSV/PDF, categoriza automaticamente e organiza por mês. Tudo no seu aparelho.",
+  "description": "Painel financeiro pessoal — controle de entradas, saídas, metas, patrimônio e fluxo de caixa.",
   "lang": "pt-BR",
   "dir": "ltr",
-  "start_url": "index.html",
+  "start_url": "./mobile.html?v=mobile",
   "scope": "./",
-  "id": "/mr-finance/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
-  "orientation": "portrait-primary",
-  "background_color": "#050814",
-  "theme_color": "#7c4dff",
+  "orientation": "portrait",
+  "background_color": "#070b18",
+  "theme_color": "#070b18",
   "categories": ["finance", "productivity"],
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

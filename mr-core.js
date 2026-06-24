@@ -322,8 +322,27 @@
   /* --- Config / reserva --- */
   function setReserve(pct, valor) { var st = load(); if (pct != null) st.reservePct = pct; if (valor != null) st.reserveValor = valor; save(st); }
   function setPrivacy(v) { var st = load(); st.privacy = !!v; save(st); }
-  function importBackup(json) { try { var st = JSON.parse(json); if (!st || typeof st !== 'object' || !Array.isArray(st.tx)) return false; save(Object.assign(defaults(), st)); return true; } catch (e) { return false; } }
-  function clearAll() { save(defaults()); }
+  // exportBackup: pacote com os DOIS armazenamentos (estado + bancos), retrocompatível
+  function exportBackup() {
+    var main = load();
+    var banks; try { banks = JSON.parse(localStorage.getItem('mr_bank_cfg') || 'null'); } catch (e) { banks = null; }
+    return JSON.stringify({ _app: 'MRFinance', _v: 1, exportedAt: new Date().toISOString(), finania_v4_clean: main, mr_bank_cfg: banks });
+  }
+  // importBackup: aceita (a) pacote {finania_v4_clean, mr_bank_cfg} OU (b) estado cru com tx[]
+  function importBackup(json) {
+    try {
+      var obj = (typeof json === 'string') ? JSON.parse(json) : json;
+      if (!obj || typeof obj !== 'object') return false;
+      if (obj.finania_v4_clean && typeof obj.finania_v4_clean === 'object') {
+        save(Object.assign(defaults(), obj.finania_v4_clean));
+        if (obj.mr_bank_cfg && typeof obj.mr_bank_cfg === 'object') { try { localStorage.setItem('mr_bank_cfg', JSON.stringify(obj.mr_bank_cfg)); } catch (e) {} }
+        return true;
+      }
+      if (Array.isArray(obj.tx)) { save(Object.assign(defaults(), obj)); return true; }
+      return false;
+    } catch (e) { return false; }
+  }
+  function clearAll() { save(defaults()); try { localStorage.removeItem('mr_bank_cfg'); } catch (e) {} }
 
   /* --- Bancos (porta fiel do desktop; chave SEPARADA 'mr_bank_cfg') --------
      Estrutura: { custom:[{id,name,icon,type,color}], initial:{id:valor},
@@ -400,7 +419,7 @@
     dreYear: dreYear, years: years, beneficiaryRanking: beneficiaryRanking,
     goalPct: goalPct, goalDone: goalDone, addGoal: addGoal, updateGoal: updateGoal, delGoal: delGoal,
     assetsTotal: assetsTotal, addAsset: addAsset, updateAsset: updateAsset, delAsset: delAsset,
-    setReserve: setReserve, setPrivacy: setPrivacy, importBackup: importBackup, clearAll: clearAll,
+    setReserve: setReserve, setPrivacy: setPrivacy, importBackup: importBackup, exportBackup: exportBackup, clearAll: clearAll,
     BANK_KEY: BANK_KEY, BANK_TYPES: BANK_TYPES, BANK_EMOJIS: BANK_EMOJIS,
     getBanks: getBanks, bankCalc: bankCalc, banksConsolidated: banksConsolidated,
     addBank: addBank, updateBank: updateBank, delBank: delBank, archiveBank: archiveBank, setBankInitial: setBankInitial,

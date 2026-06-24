@@ -334,6 +334,18 @@ body.m-priv .m-cat strong,body.m-priv .m-detail-amt,body.m-priv .m-kv b{
 .m-searchwrap{margin-bottom:10px}
 .m-searchwrap .m-input{height:44px}
 
+/* ===== Fluxo — linha do tempo (saldo acumulado dia a dia) ===== */
+.m-tl-mini{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--mut);margin-bottom:9px;padding:0 2px;flex-wrap:wrap}
+.m-tl-mini b{color:var(--txt);font-weight:800}
+.m-tl{display:flex;flex-direction:column}
+.m-tl-row{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.m-tl-row:last-child{border-bottom:0}
+.m-tl-row .d b{display:block;font:800 13px var(--head)}
+.m-tl-row .d small{display:block;font-size:10px;color:var(--mut);text-transform:capitalize}
+.m-tl-row .mv{font-size:11.5px;color:var(--dim);min-width:0}
+.m-tl-row .mv .up,.m-tl-row .mv .down{font-weight:800}
+.m-tl-row .acc{font:800 13px var(--head);white-space:nowrap}
+
 /* ===== Patrimônio (donut distribuição) / Bancos (card de diferença) ===== */
 .m-donut-wrap{display:flex;align-items:center;gap:16px}
 .m-donut-wrap svg{flex:0 0 auto}
@@ -347,6 +359,22 @@ body.m-priv .m-cat strong,body.m-priv .m-detail-amt,body.m-priv .m-kv b{
 .m-warncard.ok .v{color:var(--green)}
 .m-warncard p{font-size:12px;color:var(--mut);line-height:1.45}
 .m-warncard p b{color:var(--txt)}
+
+/* ===== Lançamentos — item com ações (Paguei/Recebi, editar, cancelar) ===== */
+.m-lanc{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r-sm);padding:11px;margin-bottom:9px}
+.m-lanc-top{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:11px;align-items:center}
+.m-lanc-top .av{width:40px;height:40px;border-radius:12px;background:var(--panel2);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+.m-lanc-top .info{min-width:0}
+.m-lanc-top .info b{display:block;font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-lanc-top .info span{display:block;font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.m-lanc-top strong{font:800 14px var(--head);white-space:nowrap}
+.m-debt{height:6px;border-radius:99px;background:#26375f;overflow:hidden;margin:9px 0 2px}
+.m-debt i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5b31dc,#22e68b)}
+.m-lancact{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.m-lancact button{height:34px;padding:0 11px;border-radius:9px;border:1px solid var(--line2);background:var(--panel2);color:var(--dim);font-size:11.5px;font-weight:800}
+.m-lancact button:active{transform:scale(.96)}
+.m-lancact button.conf{background:rgba(34,230,139,.16);border-color:rgba(34,230,139,.4);color:#7ef0b6;flex:1 1 auto}
+.m-lancact button.warn{color:#ff9bb2;border-color:rgba(255,65,109,.32)}
 
 /* ===== Lançamentos — card "próximos 30 dias" + calendário financeiro ===== */
 .m-next30{display:flex;flex-direction:column;gap:0}
@@ -423,6 +451,9 @@ body.m-priv .m-cat strong,body.m-priv .m-detail-amt,body.m-priv .m-kv b{
 .m-iconpick button{width:46px;height:46px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-size:20px}
 .m-iconpick button.on{border-color:var(--purple);background:rgba(124,77,255,.2)}
 .m-help{font-size:11.5px;color:var(--mut);line-height:1.5;margin-top:8px}
+.m-check{display:flex;align-items:center;gap:10px;margin-bottom:13px;cursor:pointer;font-size:13px;color:var(--dim);font-weight:600}
+.m-check input{width:22px;height:22px;flex:0 0 auto;accent-color:var(--purple)}
+.m-check span{line-height:1.3}
 
 /* ===== HERO (resumo principal do mês) ===== */
 .m-hero{position:relative;border-radius:var(--r-lg);padding:17px 16px 15px;overflow:hidden;
@@ -438,6 +469,8 @@ body.m-priv .m-cat strong,body.m-priv .m-detail-amt,body.m-priv .m-kv b{
 .m-hero-stats>div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:9px 8px;min-width:0}
 .m-hero-stats i{font-style:normal;font-size:10px;font-weight:800;color:var(--mut);white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis}
 .m-hero-stats b{display:block;font:800 clamp(12px,3.6vw,14.5px) var(--head);letter-spacing:-.02em;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-hero-patr{position:relative;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--mut)}
+.m-hero-patr b{color:var(--txt);font-weight:800}
 
 /* ===== PAINEL (seção titulada uniforme) ===== */
 .m-panel{margin-top:14px;background:linear-gradient(165deg,rgba(18,28,54,.72),rgba(9,14,31,.72));

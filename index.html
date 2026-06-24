@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>MR Finance</title>
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#070b18" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="icon" type="image/svg+xml" href="icon.svg" />
+<style>
+  html,body{margin:0;height:100%;background:#070b18;color:#aab7df;
+    font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+  .wrap{height:100%;display:grid;place-items:center;text-align:center;padding:24px}
+  .logo{width:72px;height:72px;border-radius:18px;display:block;margin:0 auto 14px;object-fit:cover;
+    box-shadow:0 0 32px rgba(124,77,255,.45);border:1px solid rgba(255,255,255,.08)}
+  a{color:#9d6bff;font-weight:700}
+</style>
+<script>
+/* Build MOBILE — vai direto para o app (sem detecção de desktop). */
+(function () {
+  try { location.replace('mobile.html?v=mobile'); }
+  catch (e) { document.getElementById('go').style.display = 'inline-block'; }
+})();
+</script>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <img class="logo" src="icon-192.png" alt="MR Finance" width="72" height="72" onerror="this.onerror=null;this.src='icon.svg'" />
+      <p>Carregando o MR Finance…</p>
+      <noscript><p>Ative o JavaScript para continuar.</p></noscript>
+      <a id="go" href="mobile.html?v=mobile" style="display:none">Abrir aplicativo</a>
+    </div>
+  </div>
+</body>
+</html>

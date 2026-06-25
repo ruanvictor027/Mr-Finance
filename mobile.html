@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="mobile.css?v=16" />
+<link rel="stylesheet" href="mobile.css?v=18" />
 <!-- PWA: instalável e offline (mobile apenas; desktop não é afetado) -->
 <link rel="manifest" href="manifest.webmanifest" />
 <meta name="application-name" content="MR Finance" />
@@ -24,7 +24,8 @@
 <!-- ===== App bar ===== -->
 <header class="m-appbar">
   <div class="m-appbar-top">
-    <div class="m-brand"><img class="m-logo" src="icon-192.png" alt="MR Finance" width="34" height="34" onerror="this.onerror=null;this.src='icon.svg'" /><b>MR Finance</b></div>
+    <div class="m-brand"><span class="m-logo">MR</span><b>MR Finance</b></div>
+    <button class="m-iconbtn" id="mNotif" aria-label="Notificações" title="Notificações">🔔<sup id="mBell" class="m-bellcount hidden">0</sup></button>
     <button class="m-iconbtn" id="mPrivacy" aria-label="Privacidade" title="Ocultar valores">🙈</button>
   </div>
   <div class="m-month">
@@ -55,8 +56,8 @@
 
 <div class="m-toast" id="mToast"></div>
 
-<script src="mr-core.js?v=4"></script>
-<script src="mobile.js?v=16"></script>
+<script src="mr-core.js?v=5"></script>
+<script src="mobile.js?v=18"></script>
 <script>
 /* Registra o service worker (só sob http/https; file:// não suporta SW). */
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {

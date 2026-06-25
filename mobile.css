@@ -45,12 +45,28 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
 }
 .m-appbar-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
 .m-brand{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
-.m-logo{width:34px;height:34px;border-radius:11px;flex:0 0 auto;object-fit:cover;display:block;
-  box-shadow:0 0 18px rgba(124,77,255,.45);border:1px solid rgba(255,255,255,.08)}
+.m-logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#6b35ff,#8e5cff);
+  display:grid;place-items:center;font:800 15px var(--head);color:#fff;flex:0 0 auto;box-shadow:0 0 18px rgba(124,77,255,.5)}
 .m-brand b{font:800 17px var(--head);letter-spacing:-.02em;white-space:nowrap}
 .m-iconbtn{width:var(--tap);height:44px;border-radius:13px;background:rgba(255,255,255,.06);
   border:1px solid var(--line2);display:grid;place-items:center;font-size:19px;flex:0 0 auto;color:var(--txt)}
 .m-iconbtn:active{transform:scale(.93)}
+.m-iconbtn{position:relative}
+.m-bellcount{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;
+  background:var(--red);color:#fff;font-size:10px;font-weight:900;display:grid;place-items:center;border:2px solid var(--bg);line-height:1}
+.m-bellcount.hidden{display:none}
+/* cards/seções de notificação (no bottom-sheet) */
+.nf-sec{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:14px 2px 8px;display:flex;align-items:center;gap:7px}
+.nf-card{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:11px;align-items:center;width:100%;text-align:left;
+  padding:11px;border:1px solid var(--line2);border-radius:13px;background:var(--panel);color:var(--txt);margin-bottom:8px}
+.nf-card:active{background:var(--panel2)}
+.nf-card .nf-ic{width:34px;height:34px;border-radius:11px;background:var(--panel2);display:grid;place-items:center;font-size:17px}
+.nf-card .nf-bd{min-width:0}
+.nf-card .nf-bd b{display:block;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nf-card .nf-bd small{display:block;font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.nf-card .nf-val{font:800 13px var(--head);white-space:nowrap}
+.nf-card.bad{border-color:rgba(255,65,109,.45)} .nf-card.warn{border-color:rgba(255,178,56,.4)} .nf-card.good{border-color:rgba(34,230,139,.4)}
+.nf-empty{text-align:center;color:var(--dim);padding:34px 18px;line-height:1.5}
 .m-month{display:flex;align-items:center;gap:8px}
 .m-month .m-mbtn{width:44px;height:40px;border-radius:12px;background:var(--panel2);border:1px solid var(--line2);
   display:grid;place-items:center;font-size:20px;color:var(--txt);flex:0 0 auto}

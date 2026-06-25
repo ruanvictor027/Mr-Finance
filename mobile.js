@@ -20,6 +20,7 @@
   var payTab = 'aberto';
   var recTab = 'aberto';
   var concilTab = 'pendencias';
+  var notifTab = 'pay';
   var view = new Date();
 
   /* mapeia cada tela -> botão raiz da bottom nav que fica destacado */
@@ -75,6 +76,7 @@
     var root = ROOT[screen] || 'mais';
     $$('#mBotnav button[data-go]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-go') === root); });
     $('#mView').innerHTML = (BUILD[screen] || buildVisao)(st);
+    try { var nb = C.notifications(st, mk()).counts.urgent, bell = $('#mBell'); if (bell) { bell.textContent = nb; bell.classList.toggle('hidden', !(nb > 0)); } } catch (e) {}
     window.scrollTo(0, 0);
   }
 
@@ -595,7 +597,9 @@
       return '<div class="insight ' + o.tone + '"><span class="i-ic">' + o.icon + '</span><div><b>' + esc(o.title) + '</b><p>' + esc(o.text) + '</p></div></div>';
     }).join('') + '</div>';
     var anhead = '<div class="m-anhead"><span class="ic">🔍</span>ANÁLISE AUTOMÁTICA</div>';
-    return head + banner + anhead + grid;
+    var a = C.agg(st, mk()), inc = C.incomeBreakdown(st, mk());
+    var incPanel = panel('💰 De onde veio o dinheiro', '', a.in ? donutBlock(inc, a.in) : '<div class="m-panel-empty">Sem entradas neste mês.</div>', true);
+    return head + banner + anhead + grid + incPanel;
   }
 
   /* ---- RELATÓRIOS E GRÁFICOS (hub financeiro + 5 gráficos, fiel ao desktop) ---- */
@@ -603,22 +607,8 @@
     return '<button class="rep-row" data-rep="' + act + '"><span class="ic" style="background:' + bg + '">' + ic + '</span>' +
       '<span class="bd"><b>' + esc(title) + '</b><p>' + esc(desc) + '</p></span><i class="chev">›</i></button>';
   }
-  function buildRelatorios(st) {
-    var yrs = C.years(st);
-    if (yrs.indexOf(repYear) < 0) repYear = yrs[0];
-    var head = shead('Relatórios e Gráficos', 'relatórios financeiros e visualizações');
-    var tools = '<div class="rep-tools"><select class="m-input" id="repYear">' +
-      yrs.map(function (y) { return '<option' + (y === repYear ? ' selected' : '') + '>' + y + '</option>'; }).join('') +
-      '</select><button class="rep-csv" data-rep="dre-csv">⬇ Exportar DRE CSV</button></div>';
-    var rows =
-      repRow('rgba(124,77,255,.2)', '📄', 'DRE — Demonstrativo de Resultado', 'Receitas, despesas e resultado por mês.', 'dre') +
-      repRow('rgba(255,178,56,.2)', '📅', 'Resumo anual', 'Entradas, saídas e resultado mês a mês do ano.', 'resumo') +
-      repRow('rgba(34,230,139,.2)', '🏷️', 'Gastos por categoria', 'Ranking de quanto cada categoria consumiu no ano.', 'gastos');
-    var repPanel = panel('Relatórios financeiros', '', tools + rows, true);
-    return head + repPanel + graphsSection(st);
-  }
-  // DRE em bottom-sheet
-  function openDRE(st) {
+  // tabela DRE (reutilizada inline e no sheet)
+  function dreTable(st) {
     var dre = C.dreYear(st, repYear);
     var rows = '<div class="m-dre"><div class="m-dre-row head"><span class="mn">Mês</span><span class="v">Entradas</span><span class="v">Saídas</span><span class="v">Result.</span></div>';
     if (!dre.rows.length) rows += '<div class="m-dre-row"><span class="mn">Sem dados</span><span class="v">—</span><span class="v">—</span><span class="v">—</span></div>';
@@ -627,8 +617,30 @@
       rows += '<div class="m-dre-row"><span class="mn">' + esc(mn) + '</span><span class="v up">' + C.compact(r.in) + '</span><span class="v down">' + C.compact(r.out) + '</span><span class="v ' + (r.net >= 0 ? 'up' : 'down') + '">' + C.compact(r.net) + '</span></div>';
     });
     rows += '<div class="m-dre-row tot"><span class="mn">Total ' + repYear + '</span><span class="v up">' + C.compact(dre.total.in) + '</span><span class="v down">' + C.compact(dre.total.out) + '</span><span class="v ' + (dre.total.net >= 0 ? 'up' : 'down') + '">' + C.compact(dre.total.net) + '</span></div></div>';
-    openSheet(sheetHead('DRE ' + repYear) + rows +
-      '<div class="m-note" style="margin-top:12px">Entradas <b>' + C.money(dre.total.in) + '</b> · Saídas <b>' + C.money(dre.total.out) + '</b> · Resultado <b>' + C.money(dre.total.net) + '</b></div>' +
+    return { html: rows, total: dre.total };
+  }
+  // RELATÓRIOS E DRE — modelos de relatório (DRE inline + atalhos). SEM gráficos (esses ficam na aba Gráficos).
+  function buildRelatorios(st) {
+    var yrs = C.years(st);
+    if (yrs.indexOf(repYear) < 0) repYear = yrs[0];
+    var head = shead('Relatórios e DRE', 'demonstrativo de resultado e relatórios');
+    var tools = '<div class="rep-tools"><select class="m-input" id="repYear">' +
+      yrs.map(function (y) { return '<option' + (y === repYear ? ' selected' : '') + '>' + y + '</option>'; }).join('') +
+      '</select><button class="rep-csv" data-rep="dre-csv">⬇ Exportar DRE CSV</button></div>';
+    var dt = dreTable(st);
+    var dreNote = '<div class="m-note">No ano — Entradas <b>' + C.money(dt.total.in) + '</b> · Saídas <b>' + C.money(dt.total.out) + '</b> · Resultado <b>' + C.money(dt.total.net) + '</b></div>';
+    var drePanel = panel('📄 DRE — ' + repYear, '', tools + dt.html + dreNote, true);
+    var rows =
+      repRow('rgba(255,178,56,.2)', '📅', 'Resumo anual', 'Entradas × saídas mês a mês do ano.', 'resumo') +
+      repRow('rgba(34,230,139,.2)', '🏷️', 'Gastos por categoria', 'Ranking de quanto cada categoria consumiu.', 'gastos');
+    var repPanel = panel('Outros relatórios', '', rows, true);
+    return head + drePanel + repPanel;
+  }
+  // DRE em bottom-sheet
+  function openDRE(st) {
+    var dt = dreTable(st);
+    openSheet(sheetHead('DRE ' + repYear) + dt.html +
+      '<div class="m-note" style="margin-top:12px">Entradas <b>' + C.money(dt.total.in) + '</b> · Saídas <b>' + C.money(dt.total.out) + '</b> · Resultado <b>' + C.money(dt.total.net) + '</b></div>' +
       '<button class="m-btn ghost" data-rep="dre-csv" style="margin-top:14px">⬇ Exportar CSV</button>');
   }
   // Resumo anual (gráfico) em bottom-sheet
@@ -1175,6 +1187,39 @@
     inp.click();
   }
 
+  /* ---- Notificações (sino) ---- */
+  function openNotif() {
+    var st = C.load(), m = C.notifications(st, mk());
+    var tabs = '<div class="m-seg">' +
+      '<button class="' + (notifTab === 'pay' ? 'on' : '') + '" data-ntab="pay">A pagar <b>' + m.counts.pay + '</b></button>' +
+      '<button class="' + (notifTab === 'rec' ? 'on' : '') + '" data-ntab="rec">A receber <b>' + m.counts.rec + '</b></button>' +
+      '<button class="' + (notifTab === 'alertas' ? 'on' : '') + '" data-ntab="alertas">Alertas <b>' + m.counts.alerts + '</b></button></div>';
+    function nfRow(t) {
+      var c = C.catById(t.cat, st), isIn = t.tipo === 'receita';
+      return '<button class="nf-card" data-notnav="lancamentos"><span class="nf-ic">' + esc(c.icon) + '</span>' +
+        '<div class="nf-bd"><b>' + esc(t.originalDesc || t.desc || c.name) + '</b><small>' + (isIn ? 'receber' : 'vence') + ' ' + dateBR(t.date) + '</small></div>' +
+        '<strong class="nf-val ' + (isIn ? 'up' : 'down') + '">' + C.money(t.valor) + '</strong></button>';
+    }
+    function sec(l, arr) { return arr.length ? '<div class="nf-sec">' + l + ' <span>' + arr.length + '</span></div>' + arr.slice().sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); }).map(nfRow).join('') : ''; }
+    var body;
+    if (notifTab === 'pay') {
+      var g = m.payG, has = g.vencidas.length + g.hoje.length + g.d7.length + g.d30.length + g.fut.length;
+      body = has ? sec('🔴 Vencidas', g.vencidas) + sec('🟡 Vencem hoje', g.hoje) + sec('🟢 Próximos 7 dias', g.d7) + sec('📅 Até 30 dias', g.d30) + sec('🗓️ Futuras', g.fut)
+        : '<div class="nf-empty">Nenhuma conta a pagar pendente neste mês. 🎉</div>';
+    } else if (notifTab === 'rec') {
+      var r = m.recG, has2 = r.atraso.length + r.hoje.length + r.prox.length;
+      body = has2 ? sec('🔴 Atrasadas', r.atraso) + sec('🟡 Hoje', r.hoje) + sec('🟢 Próximas', r.prox)
+        : '<div class="nf-empty">Nenhum recebimento previsto neste mês.</div>';
+    } else {
+      body = m.alerts.length ? m.alerts.map(function (al) {
+        return '<button class="nf-card ' + al.tone + '" data-notnav="' + al.nav + '"><span class="nf-ic">' + al.icon + '</span><div class="nf-bd"><b>' + esc(al.title) + '</b><small>' + esc(al.sub) + '</small></div><span class="nf-val" style="color:var(--mut)">›</span></button>';
+      }).join('') : '<div class="nf-empty">Sem alertas no momento. 👍</div>';
+    }
+    openSheet(sheetHead('🔔 Notificações') + tabs + body);
+    $$('#mSheetBody [data-ntab]').forEach(function (b) { b.onclick = function () { notifTab = b.getAttribute('data-ntab'); openNotif(); }; });
+    $$('#mSheetBody [data-notnav]').forEach(function (b) { b.onclick = function () { closeSheet(); go(b.getAttribute('data-notnav')); }; });
+  }
+
   /* ============================ AÇÕES (tela Mais/Config) ============================ */
   function handleAct(act) {
     if (act === 'theme') {
@@ -1235,6 +1280,7 @@
   $('#mNext').onclick = function () { shiftMonth(1); };
   $('#mBackdrop').onclick = closeSheet;
   $('#mPrivacy').onclick = function () { handleAct('privacy'); };
+  $('#mNotif').onclick = openNotif;
 
   /* delegação única para todo o conteúdo dinâmico */
   document.addEventListener('click', function (e) {

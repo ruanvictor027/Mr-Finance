@@ -284,6 +284,33 @@
     return { teto: a.in * .8 / Math.max(1, dim), medio: a.out / Math.max(1, elapsed) };
   }
 
+  /* --- Notificações (porta fiel do notifModel do desktop) --- */
+  function daysUntil(d) { var t = new Date(); t.setHours(0, 0, 0, 0); var x = new Date(d + 'T00:00:00'); return Math.round((x - t) / 86400000); }
+  function notifications(st, k) {
+    st = st || load();
+    var pend = (st.tx || []).filter(function (t) { return t && t.pending && !t.canceled && t.date && t.date.slice(0, 7) === k; });
+    var pays = pend.filter(function (t) { return t.tipo === 'despesa'; });
+    var recs = pend.filter(function (t) { return t.tipo === 'receita'; });
+    var sum = function (arr) { return arr.reduce(function (s, t) { return s + (+t.valor || 0); }, 0); };
+    var payG = { vencidas: [], hoje: [], d7: [], d30: [], fut: [] };
+    pays.forEach(function (t) { var d = daysUntil(t.date); if (d < 0) payG.vencidas.push(t); else if (d === 0) payG.hoje.push(t); else if (d <= 7) payG.d7.push(t); else if (d <= 30) payG.d30.push(t); else payG.fut.push(t); });
+    var recG = { atraso: [], hoje: [], prox: [] };
+    recs.forEach(function (t) { var d = daysUntil(t.date); if (d < 0) recG.atraso.push(t); else if (d === 0) recG.hoje.push(t); else recG.prox.push(t); });
+    var a = agg(st, k), alerts = [];
+    var vTot = sum(payG.vencidas);
+    if (vTot > 0) alerts.push({ tone: 'bad', icon: '⛔', title: 'Contas vencidas', sub: money(vTot) + ' em ' + payG.vencidas.length + ' conta(s).', nav: 'lancamentos' });
+    var hojeTot = sum(payG.hoje);
+    if (hojeTot > 0) alerts.push({ tone: 'warn', icon: '⏰', title: 'Vencem hoje', sub: money(hojeTot) + ' em ' + payG.hoje.length + ' conta(s).', nav: 'lancamentos' });
+    var need7 = vTot + hojeTot + sum(payG.d7);
+    if (need7 > 0) { var sal = runningBalance(st, k), okc = sal >= need7; alerts.push({ tone: okc ? 'good' : 'bad', icon: okc ? '✅' : '⚠️', title: okc ? 'Saldo cobre os próximos 7 dias' : 'Saldo pode não cobrir 7 dias', sub: 'Próx. 7 dias: ' + money(need7) + ' · saldo ' + money(sal) + '.', nav: 'fluxo' }); }
+    if (a.in > 0) { var comp = a.out + sum(pays), pc = Math.round(comp / a.in * 100); alerts.push({ tone: pc > 90 ? 'bad' : pc > 70 ? 'warn' : 'good', icon: '📊', title: 'Comprometimento da renda', sub: pc + '% das entradas comprometidas com despesas.', nav: 'analises' }); }
+    var pendRec = pend.filter(function (t) { return (+t.installmentTotal > 1) || t.recurring; });
+    if (pendRec.length) alerts.push({ tone: 'warn', icon: '♻️', title: 'Recorrências a confirmar', sub: pendRec.length + ' parcela(s)/recorrência(s) · ' + money(sum(pendRec)) + '.', nav: 'lancamentos' });
+    var recTot = sum(recs);
+    if (recTot > 0) alerts.push({ tone: 'good', icon: '📥', title: 'A receber no mês', sub: money(recTot) + ' em ' + recs.length + ' lançamento(s).', nav: 'lancamentos' });
+    return { payG: payG, recG: recG, alerts: alerts, counts: { pay: pays.length, rec: recs.length, alerts: alerts.length, urgent: payG.vencidas.length + payG.hoje.length + recG.atraso.length } };
+  }
+
   /* --- DRE simplificado (resultado por mês no ano) --- */
   function dreYear(st, year) {
     var rows = [];
@@ -416,6 +443,7 @@
     pendingTotals: pendingTotals, categoryBreakdown: categoryBreakdown, incomeBreakdown: incomeBreakdown,
     savingsRate: savingsRate, txOfMonth: txOfMonth,
     recurring: recurring, flowForecast: flowForecast, flowIndicators: flowIndicators, insights: insights, dailyLimit: dailyLimit,
+    daysUntil: daysUntil, notifications: notifications,
     dreYear: dreYear, years: years, beneficiaryRanking: beneficiaryRanking,
     goalPct: goalPct, goalDone: goalDone, addGoal: addGoal, updateGoal: updateGoal, delGoal: delGoal,
     assetsTotal: assetsTotal, addAsset: addAsset, updateAsset: updateAsset, delAsset: delAsset,

@@ -7,7 +7,7 @@
    Não há regra de negócio aqui; apenas estratégia de cache de arquivos.
    ============================================================================ */
 'use strict';
-var CACHE = 'mrfinance-shell-v20';
+var CACHE = 'mrfinance-shell-v23';
 
 /* Shell mobile a pré-cachear (nomes "base"; o lookup ignora a query ?v=). */
 var CORE = [
@@ -17,10 +17,7 @@ var CORE = [
   'mobile.css',
   'mobile.js',
   'mr-core.js',
-  'manifest.webmanifest',
-  'icon.svg',
-  'icon-192.png',
-  'icon-512.png'
+  'manifest.webmanifest'
 ];
 
 /* mrfinance.html NUNCA passa pelo SW (mantém o desktop independente). */

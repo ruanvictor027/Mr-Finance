@@ -123,6 +123,20 @@
   function tool(act, ic, label, em) {
     return '<button class="m-tool" data-act="' + act + '"><i>' + ic + '</i>' + esc(label) + '<em>' + em + '</em></button>';
   }
+  // 'YYYY-MM' do mês anterior
+  function prevMonthKey(k) {
+    var y = +k.slice(0, 4), m = +k.slice(5, 7) - 1; if (m < 1) { m = 12; y--; }
+    return y + '-' + (m < 10 ? '0' : '') + m;
+  }
+  // linha de gasto recorrente (nome + barra proporcional + média/mês) — fiel ao desktop
+  function recRow(st, r, max, i) {
+    var c = C.catById(r.cat, st), w = Math.max(8, Math.round(r.avg / max * 100));
+    return '<div class="m-cat"><span class="ci">' + esc(c.icon) + '</span>' +
+      '<div class="cm"><b>' + esc(trunc(r.name || c.name, 28)) + '</b>' +
+      '<small>' + r.months + ' ' + (r.months > 1 ? 'meses' : 'mês') + ' · ' + esc(c.name) + '</small>' +
+      '<div class="cbar"><i style="width:' + w + '%;background:' + PAL[i % PAL.length] + '"></i></div></div>' +
+      '<strong class="down">' + C.money(r.avg) + '/mês</strong></div>';
+  }
 
   /* ============================ TELAS ============================ */
 
@@ -163,10 +177,31 @@
     var cats = C.categoryBreakdown(st, mk());
     var catsPanel = panel('💸 Para onde foi seu dinheiro', '<button class="act" data-go="destino">Ver tudo</button>', a.out ? donutBlock(cats, a.out) : '<div class="m-panel-empty">Sem saídas neste mês.</div>', true);
 
-    var recent = C.txOfMonth(st, mk()).slice(0, 5);
-    var recBody = recent.length ? '<div class="m-list">' + recent.map(function (t) { return txRow(st, t); }).join('') + '</div>' : '<div class="m-panel-empty">Nenhuma transação ainda. Toque no ＋.</div>';
-    var recPanel = panel('🧾 Últimas transações', '<button class="act" data-go="transacoes">Ver todas</button>', recBody);
-    return hero + previstas + incPanel + catsPanel + recPanel;
+    // Principais destaques do mês (4 cards, fiel ao desktop)
+    var k = mk(), pk = prevMonthKey(k), pAgg = C.agg(st, pk);
+    var outTx = C.txOfMonth(st, k).filter(function (t) { return t.tipo === 'despesa' && !t.interno; });
+    var top = outTx.slice().sort(function (x, y) { return (+y.valor || 0) - (+x.valor || 0); })[0];
+    var small = outTx.filter(function (t) { return (+t.valor || 0) < 20; });
+    var smallTot = small.reduce(function (s, t) { return s + (+t.valor || 0); }, 0);
+    var econ = Math.max(0, pAgg.out - a.out);
+    var dias = new Date(+k.slice(0, 4), +k.slice(5, 7), 0).getDate();
+    var prevNm = C.monthName(pk).replace(/ de \d+$/, '');
+    var topCat = top ? C.catById(top.cat, st) : null, topPct = (top && a.out) ? Math.round(top.valor / a.out * 100) : 0;
+    var destaques = panel('💡 Principais destaques do mês', '', '<div class="m-kpis">' +
+      kpiS('green', '📈', 'Você economizou', money0(econ), 'em relação a ' + prevNm, 'up') +
+      kpiS('red', '👥', 'Maior gasto', top ? money0(top.valor) : '—', top ? (trunc(top.desc || topCat.name, 16) + (a.out ? ' · ' + topPct + '%' : '')) : 'sem gastos', 'down') +
+      kpiS('orange', '🛒', 'Compras pequenas', String(small.length), '< R$ 20 · ' + money0(smallTot)) +
+      kpiS('purple', '↗️', 'Média diária', money0(a.out / dias), 'em ' + dias + ' dias') +
+      '</div>', true);
+
+    // ♻️ Gastos recorrentes (detecção igual desktop: despesa repetida em ≥2 meses)
+    var rec = C.recurring(st).slice(0, 5);
+    var recMax = Math.max.apply(null, rec.map(function (r) { return r.avg; }).concat([1]));
+    var recBody = rec.length
+      ? '<div class="m-list">' + rec.map(function (r, i) { return recRow(st, r, recMax, i); }).join('') + '</div>'
+      : '<div class="m-panel-empty">Sem recorrências detectadas ainda. Importe mais meses de extrato.</div>';
+    var recPanel = panel('♻️ Gastos recorrentes', '<button class="act" data-go="transacoes">Ver todos</button>', recBody, true);
+    return hero + previstas + incPanel + catsPanel + destaques + recPanel;
   }
 
   /* ---- TRANSAÇÕES ---- */

@@ -140,6 +140,7 @@ body.m-nomonth .m-appbar-top{margin-bottom:0}
 .m-cat .ci{width:34px;height:34px;border-radius:11px;background:var(--panel2);display:grid;place-items:center;font-size:16px}
 .m-cat .cm{min-width:0}
 .m-cat .cm b{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-cat .cm small{display:block;font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
 .m-cat .cbar{height:6px;border-radius:99px;background:#26375f;overflow:hidden;margin-top:5px}
 .m-cat .cbar i{display:block;height:100%;border-radius:99px}
 .m-cat strong{font:800 13px var(--head);white-space:nowrap}

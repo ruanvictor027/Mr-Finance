@@ -692,8 +692,10 @@
   function buildDestino(st) {
     var head = shead('Para onde foi', 'de onde veio · para onde foi');
     var a = C.agg(st, mk()), total = a.out || 1;
+    // "De onde veio" e "Para onde foi" exibidos do MESMO jeito (lista de barras via catRow)
     var inc = C.incomeBreakdown(st, mk());
-    var incPanel = panel('💰 De onde veio o dinheiro', '', a.in ? donutBlock(inc, a.in) : '<div class="m-panel-empty">Sem entradas neste mês.</div>', true);
+    var incBody = inc.length ? inc.map(function (r, i) { return catRow(r, a.in || 1, i); }).join('') : '<div class="m-panel-empty">Sem entradas neste mês.</div>';
+    var incPanel = panel('💰 De onde veio o dinheiro', '', incBody);
     var cats = C.categoryBreakdown(st, mk());
     var catBody = cats.length ? cats.map(function (r, i) { return catRow(r, total, i); }).join('') : '<div class="m-panel-empty">Sem saídas neste mês.</div>';
     var catPanel = panel('💸 Para onde foi seu dinheiro', '', catBody);

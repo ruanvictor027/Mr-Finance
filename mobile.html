@@ -57,12 +57,27 @@
 <div class="m-toast" id="mToast"></div>
 
 <script src="mr-core.js?v=5"></script>
-<script src="mobile.js?v=22"></script>
+<script src="mobile.js?v=23"></script>
 <script>
-/* Registra o service worker (só sob http/https; file:// não suporta SW). */
+/* Registra o service worker (só sob http/https; file:// não suporta SW).
+   Atualização automática: quando um SW novo assume o controle, recarrega a página
+   uma vez — assim a versão nova aparece sem precisar "recarregar 2x". */
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  var _swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (_swReloaded) return; _swReloaded = true; window.location.reload();
+  });
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('service-worker.js').catch(function () { /* offline indisponível, app segue normal */ });
+    navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+      reg.update();
+      if (reg.waiting) reg.waiting.postMessage('skipWaiting');
+      reg.addEventListener('updatefound', function () {
+        var nw = reg.installing;
+        if (nw) nw.addEventListener('statechange', function () {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller) nw.postMessage('skipWaiting');
+        });
+      });
+    }).catch(function () { /* offline indisponível, app segue normal */ });
   });
 }
 </script>

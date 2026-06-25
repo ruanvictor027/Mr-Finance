@@ -7,7 +7,7 @@
    Não há regra de negócio aqui; apenas estratégia de cache de arquivos.
    ============================================================================ */
 'use strict';
-var CACHE = 'mrfinance-shell-v87';
+var CACHE = 'mrfinance-shell-v89';
 
 /* Shell mobile a pré-cachear (nomes "base"; o lookup ignora a query ?v=). */
 var CORE = [
@@ -40,6 +40,9 @@ self.addEventListener('activate', function (e) {
   })());
 });
 
+/* Permite que a página force a ativação imediata de um SW novo. */
+self.addEventListener('message', function (e) { if (e.data === 'skipWaiting') self.skipWaiting(); });
+
 self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (req.method !== 'GET') return;
@@ -48,30 +51,25 @@ self.addEventListener('fetch', function (e) {
   // Desktop: não interceptar — vai direto para a rede (isolamento total).
   if (isDesktop(url)) return;
 
-  var sameOrigin = url.origin === self.location.origin;
-
-  // Navegações: network-first (mostra updates), com fallback ao cache (offline).
-  if (req.mode === 'navigate') {
-    e.respondWith((async function () {
-      try {
-        var fresh = await fetch(req);
-        var c = await caches.open(CACHE); c.put(req, fresh.clone());
-        return fresh;
-      } catch (err) {
-        var cached = await caches.match(req, { ignoreSearch: true });
-        return cached || (await caches.match('mobile.html', { ignoreSearch: true })) || (await caches.match('index.html', { ignoreSearch: true })) || Response.error();
-      }
-    })());
-    return;
-  }
-
-  // Demais assets: stale-while-revalidate.
+  /* NETWORK-FIRST para TUDO (navegação + JS/CSS/assets).
+     Online: sempre busca a versão nova na rede e atualiza o cache — corrige o
+     bug do "não atualiza" (o ignoreSearch antigo servia o ?v= velho do cache).
+     Offline: cai no cache (exato; e por último ignorando o ?v= como salva-vidas). */
   e.respondWith((async function () {
-    var cached = await caches.match(req, { ignoreSearch: sameOrigin });
-    var network = fetch(req).then(function (res) {
-      if (res && (res.ok || res.type === 'opaque')) { caches.open(CACHE).then(function (c) { c.put(req, res.clone()); }); }
-      return res;
-    }).catch(function () { return cached; });
-    return cached || network;
+    try {
+      var fresh = await fetch(req);
+      if (fresh && (fresh.ok || fresh.type === 'opaque')) {
+        var c = await caches.open(CACHE); c.put(req, fresh.clone());
+      }
+      return fresh;
+    } catch (err) {
+      var cached = (await caches.match(req)) || (await caches.match(req, { ignoreSearch: true }));
+      if (cached) return cached;
+      if (req.mode === 'navigate') {
+        return (await caches.match('mobile.html', { ignoreSearch: true })) ||
+               (await caches.match('index.html', { ignoreSearch: true })) || Response.error();
+      }
+      return Response.error();
+    }
   })());
 });

@@ -589,8 +589,6 @@
     var banner = '<div class="m-banner"><div class="bic">📅</div><div class="bbd">' +
       '<b>Limite sugerido: ' + C.money(dl.teto) + '/dia</b>' +
       '<span>Seu gasto médio atual é ' + C.money(dl.medio) + '/dia.</span></div></div>';
-    var a = C.agg(st, mk()), inc = C.incomeBreakdown(st, mk());
-    var incPanel = panel('💰 De onde veio o dinheiro', '', a.in ? donutBlock(inc, a.in) : '<div class="m-panel-empty">Sem entradas neste mês.</div>', true);
     var anhead = '<div class="m-anhead"><span class="ic">🔍</span>ANÁLISE AUTOMÁTICA</div>';
     var ins = C.insights(st, mk());
     var grid = ins.length
@@ -598,7 +596,7 @@
           return '<div class="insight ' + o.tone + '"><span class="i-ic">' + o.icon + '</span><div><b>' + esc(o.title) + '</b><p>' + esc(o.text) + '</p></div></div>';
         }).join('') + '</div>'
       : '<div class="insight good"><span class="i-ic">💡</span><div><b>Sem dados suficientes</b><p>Importe OFX/CSV/PDF ou confirme lançamentos para ver alertas automáticos.</p></div></div>';
-    return head + banner + incPanel + anhead + grid;
+    return head + banner + anhead + grid;
   }
 
   /* ---- RELATÓRIOS E GRÁFICOS (hub financeiro + 5 gráficos, fiel ao desktop) ---- */
@@ -657,11 +655,13 @@
 
   /* ---- PARA ONDE FOI ---- */
   function buildDestino(st) {
-    var head = shead('Para onde foi', 'ranking de saídas');
+    var head = shead('Para onde foi', 'de onde veio · para onde foi');
     var a = C.agg(st, mk()), total = a.out || 1;
+    var inc = C.incomeBreakdown(st, mk());
+    var incPanel = panel('💰 De onde veio o dinheiro', '', a.in ? donutBlock(inc, a.in) : '<div class="m-panel-empty">Sem entradas neste mês.</div>', true);
     var cats = C.categoryBreakdown(st, mk());
     var catBody = cats.length ? cats.map(function (r, i) { return catRow(r, total, i); }).join('') : '<div class="m-panel-empty">Sem saídas neste mês.</div>';
-    var catPanel = panel('Por categoria', '', catBody);
+    var catPanel = panel('💸 Para onde foi seu dinheiro', '', catBody);
     var ben = C.beneficiaryRanking(st, mk()), benHtml = '';
     if (ben.length) {
       var benBody = '<div class="m-list">' + ben.slice(0, 10).map(function (r, i) {
@@ -669,7 +669,7 @@
       }).join('') + '</div>';
       benHtml = panel('Maiores destinos', '', benBody);
     }
-    return head + catPanel + benHtml;
+    return head + incPanel + catPanel + benHtml;
   }
 
   /* ---- CONCILIAÇÃO (fiel-possível: movimento confirmado ↔ banco) ---- */

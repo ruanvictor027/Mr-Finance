@@ -589,17 +589,16 @@
     var banner = '<div class="m-banner"><div class="bic">📅</div><div class="bbd">' +
       '<b>Limite sugerido: ' + C.money(dl.teto) + '/dia</b>' +
       '<span>Seu gasto médio atual é ' + C.money(dl.medio) + '/dia.</span></div></div>';
-    var ins = C.insights(st, mk());
-    if (!ins.length) {
-      return head + banner + '<div class="insight good" style="margin-top:14px"><span class="i-ic">💡</span><div><b>Sem dados suficientes</b><p>Importe OFX/CSV/PDF ou confirme lançamentos para ver alertas automáticos.</p></div></div>';
-    }
-    var grid = '<div class="insights">' + ins.map(function (o) {
-      return '<div class="insight ' + o.tone + '"><span class="i-ic">' + o.icon + '</span><div><b>' + esc(o.title) + '</b><p>' + esc(o.text) + '</p></div></div>';
-    }).join('') + '</div>';
-    var anhead = '<div class="m-anhead"><span class="ic">🔍</span>ANÁLISE AUTOMÁTICA</div>';
     var a = C.agg(st, mk()), inc = C.incomeBreakdown(st, mk());
     var incPanel = panel('💰 De onde veio o dinheiro', '', a.in ? donutBlock(inc, a.in) : '<div class="m-panel-empty">Sem entradas neste mês.</div>', true);
-    return head + banner + anhead + grid + incPanel;
+    var anhead = '<div class="m-anhead"><span class="ic">🔍</span>ANÁLISE AUTOMÁTICA</div>';
+    var ins = C.insights(st, mk());
+    var grid = ins.length
+      ? '<div class="insights">' + ins.map(function (o) {
+          return '<div class="insight ' + o.tone + '"><span class="i-ic">' + o.icon + '</span><div><b>' + esc(o.title) + '</b><p>' + esc(o.text) + '</p></div></div>';
+        }).join('') + '</div>'
+      : '<div class="insight good"><span class="i-ic">💡</span><div><b>Sem dados suficientes</b><p>Importe OFX/CSV/PDF ou confirme lançamentos para ver alertas automáticos.</p></div></div>';
+    return head + banner + incPanel + anhead + grid;
   }
 
   /* ---- RELATÓRIOS E GRÁFICOS (hub financeiro + 5 gráficos, fiel ao desktop) ---- */
@@ -627,14 +626,12 @@
     var tools = '<div class="rep-tools"><select class="m-input" id="repYear">' +
       yrs.map(function (y) { return '<option' + (y === repYear ? ' selected' : '') + '>' + y + '</option>'; }).join('') +
       '</select><button class="rep-csv" data-rep="dre-csv">⬇ Exportar DRE CSV</button></div>';
-    var dt = dreTable(st);
-    var dreNote = '<div class="m-note">No ano — Entradas <b>' + C.money(dt.total.in) + '</b> · Saídas <b>' + C.money(dt.total.out) + '</b> · Resultado <b>' + C.money(dt.total.net) + '</b></div>';
-    var drePanel = panel('📄 DRE — ' + repYear, '', tools + dt.html + dreNote, true);
     var rows =
+      repRow('rgba(124,77,255,.2)', '📄', 'DRE — Demonstrativo de Resultado', 'Receitas, despesas e resultado por mês.', 'dre') +
       repRow('rgba(255,178,56,.2)', '📅', 'Resumo anual', 'Entradas × saídas mês a mês do ano.', 'resumo') +
       repRow('rgba(34,230,139,.2)', '🏷️', 'Gastos por categoria', 'Ranking de quanto cada categoria consumiu.', 'gastos');
-    var repPanel = panel('Outros relatórios', '', rows, true);
-    return head + drePanel + repPanel;
+    var repPanel = panel('Relatórios financeiros', '', tools + rows, true);
+    return head + repPanel;
   }
   // DRE em bottom-sheet
   function openDRE(st) {

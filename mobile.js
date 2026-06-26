@@ -271,10 +271,8 @@
       ? '<div class="m-list">' + compromissos.slice(0, 12).map(function (t) { return txRow(st, t); }).join('') + '</div>'
       : '<div class="m-panel-empty">Nenhum compromisso futuro após este mês.</div>';
     var compPanel = panel('📅 Compromissos futuros', compromissos.length ? '<span class="act" style="color:var(--mut)">' + C.money(compTot) + '</span>' : '', compBody);
-    // Calendário Financeiro
-    var calPanel = lancCalendar(st, k);
 
-    return head + resumo + kpis + '<div style="margin-top:14px"></div>' + nextCard + next30 + payPanel + recPanel + compPanel + calPanel;
+    return head + resumo + kpis + '<div style="margin-top:14px"></div>' + nextCard + next30 + payPanel + recPanel + compPanel;
   }
 
   // barra de progresso da dívida (parcelas pagas da série)
@@ -314,34 +312,6 @@
       : '<div class="m-panel-empty">Nenhuma conta ' + (tab === 'atrasadas' ? 'atrasada' : tab === 'pagas' ? lbl.toLowerCase() : 'em aberto') + ' neste mês.</div>';
     return panel(title, '<span class="act" style="color:var(--mut)">' + C.money(tot) + '</span>',
       '<div class="m-note" style="margin-top:0;margin-bottom:10px">' + esc(sub) + '</div>' + seg + body, true);
-  }
-
-  function lancCalendar(st, k) {
-    var yy = +k.slice(0, 4), mm = +k.slice(5, 7) - 1, dim = new Date(yy, mm + 1, 0).getDate();
-    var byDay = {};
-    (st.tx || []).filter(function (t) { return t && t.pending && !t.canceled && (t.date || '').slice(0, 7) === k; }).forEach(function (t) {
-      var d = +(t.date || '').slice(8, 10); if (!d) return;
-      var o = byDay[d] = byDay[d] || { pay: 0, rec: 0, parc: false };
-      if (t.tipo === 'receita') o.rec += (+t.valor || 0); else o.pay += (+t.valor || 0);
-      if (+t.installmentTotal > 1) o.parc = true;
-    });
-    var cells = '';
-    for (var d = 1; d <= dim; d++) {
-      var o = byDay[d], has = !!o;
-      var dots = '', val = '';
-      if (has) {
-        if (o.pay > 0) dots += '<i class="m-cal-dot pay"></i>';
-        if (o.rec > 0) dots += '<i class="m-cal-dot rec"></i>';
-        if (o.parc) dots += '<i class="m-cal-dot parc"></i>';
-        var net = o.rec - o.pay;
-        val = '<span class="m-cal-val">' + (o.pay > 0 ? '−' + grK(o.pay) : '') + (o.pay > 0 && o.rec > 0 ? ' · ' : '') + (o.rec > 0 ? '+' + grK(o.rec) : '') + '</span>';
-      }
-      cells += '<div class="m-cal-cell' + (has ? ' has' : '') + '"><span class="dn">' + String(d).padStart(2, '0') + '</span>' +
-        (has ? '<span class="m-cal-body"><span class="m-cal-dots">' + dots + '</span>' + val + '</span>' : '') + '</div>';
-    }
-    var legend = '<div class="m-cal-legend"><span><i style="background:var(--red)"></i>A pagar</span><span><i style="background:var(--green)"></i>A receber</span><span><i style="background:var(--purple2)"></i>Parcela</span></div>';
-    return panel('📆 Calendário Financeiro', '<span class="act" style="color:var(--mut);text-transform:capitalize">' + esc(C.monthName(k).replace(/ de \d+/, '')) + '</span>',
-      '<div class="m-note" style="margin-top:0;margin-bottom:11px">Vencimentos do mês: contas a pagar, a receber e parcelas.</div><div class="m-cal">' + cells + '</div>' + legend, true);
   }
 
   /* ---- GRÁFICOS (seletor de chips + 5 gráficos, fiel ao desktop) ---- */
@@ -1033,7 +1003,7 @@
           var s2 = C.load(); s2.tx.push.apply(s2.tx, batch); C.save(s2);
           toast((repeat ? 'Recorrência' : 'Lançamento') + ' criado: ' + n + ' parcela(s) provisionada(s).');
         } else {
-          C.addTx({ date: draft.date, tipo: draft.tipo, valor: valor, cat: draft.cat, desc: desc, memo: desc, pending: !!draft.pending, account: account || undefined, note: note || undefined });
+          C.addTx({ date: draft.date, tipo: draft.tipo, valor: valor, cat: draft.cat, desc: desc, memo: desc, pending: !!draft.pending, manual: true, account: account || undefined, note: note || undefined });
           toast('Lançamento adicionado');
         }
       }

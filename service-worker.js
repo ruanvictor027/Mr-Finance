@@ -7,7 +7,7 @@
    Não há regra de negócio aqui; apenas estratégia de cache de arquivos.
    ============================================================================ */
 'use strict';
-var CACHE = 'mrfinance-shell-v90';
+var CACHE = 'mrfinance-shell-v94';
 
 /* Shell mobile a pré-cachear (nomes "base"; o lookup ignora a query ?v=). */
 var CORE = [

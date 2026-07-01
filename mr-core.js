@@ -12,31 +12,32 @@
 
   var KEY = 'finania_v4_clean';
 
-  /* Categorias base — espelho do array `cats` do desktop (id/name/icon/type). */
+  /* Categorias base — espelho do array `cats` do desktop (id/name/icon/type/kw).
+     As keywords (kw) alimentam a categorização automática do import (catOf). */
   var CATS = [
-    { id: 'salario', name: 'Salário', icon: '💼', type: 'receita' },
-    { id: 'rendimentos', name: 'Rendimentos e cashback', icon: '📈', type: 'receita' },
-    { id: 'reembolso', name: 'Reembolsos e estornos', icon: '↩️', type: 'receita' },
-    { id: 'recebidos', name: 'Pix/Transf. recebidos', icon: '💸', type: 'receita' },
-    { id: 'emprestimos_receita', name: 'Empréstimos recebidos', icon: '💸', type: 'receita' },
-    { id: 'pessoas', name: 'Pessoas e Pix', icon: '👥' },
-    { id: 'mercado', name: 'Alimentação e mercado', icon: '🛒', type: 'despesa' },
-    { id: 'servicos', name: 'Serviços e assinaturas', icon: '🧩', type: 'despesa' },
-    { id: 'lazer', name: 'Compras e lazer', icon: '✨', type: 'despesa' },
-    { id: 'fatura', name: 'Fatura do cartão', icon: '💳', type: 'despesa' },
-    { id: 'emprestimos_despesa', name: 'Empréstimos pagos', icon: '💰', type: 'despesa' },
-    { id: 'transporte', name: 'Transporte', icon: '🚗', type: 'despesa' },
-    { id: 'saude', name: 'Saúde', icon: '💊', type: 'despesa' },
-    { id: 'moradia', name: 'Casa e contas', icon: '🏠', type: 'despesa' },
-    { id: 'investimentos', name: 'Investimentos', icon: '🏦', type: 'despesa' },
-    { id: 'saque', name: 'Saque', icon: '🏧', type: 'despesa' },
-    { id: 'outros', name: 'Outros', icon: '📦' }
+    { id: 'salario', name: 'Salário', icon: '💼', type: 'receita', kw: ['salario', 'pagamento recebido', 'folha', 'provento', 'remuneracao', 'ruan victor vargas porto'] },
+    { id: 'rendimentos', name: 'Rendimentos e cashback', icon: '📈', type: 'receita', kw: ['rendimento', 'juros sobre', 'cashback'] },
+    { id: 'reembolso', name: 'Reembolsos e estornos', icon: '↩️', type: 'receita', kw: ['reembolso', 'estorno'] },
+    { id: 'recebidos', name: 'Pix/Transf. recebidos', icon: '💸', type: 'receita', kw: ['pix recebido', 'recebida pelo pix', 'transferencia recebida', 'ted recebida', 'doc recebida', 'deposito recebido', 'boleto'] },
+    { id: 'emprestimos_receita', name: 'Empréstimos recebidos', icon: '💸', type: 'receita', kw: ['resgate de emprestimo', 'emprestimo recebido', 'empréstimo recebido', 'recebimento de emprestimo'] },
+    { id: 'pessoas', name: 'Pessoas e Pix', icon: '👥', kw: [] },
+    { id: 'mercado', name: 'Alimentação e mercado', icon: '🛒', type: 'despesa', kw: ['mercado', 'supermercado', 'padaria', 'panif', '3marias', 'hortifruti', 'mercearia', 'restaurante', 'spoleto', 'outback', 'cacau show', 'coisas do cacau', 'burger', 'burguer', 'pizzaria', 'pizza', 'zamp', 'acai', 'lanche', 'salgados', 'foodhouse', 'food house', 'copao', 'bar do', 'bar e restaurante', 'distribuidora alemao', 'extrabom', 'casagran', 'massaggio', 'bacio', 'di latte', 'comida', 'parrilla', 'viladelli', 'ifood', 'padoca', 'padocas', 'panificadora', 'roque do coco', 'gc food', 'gabiel'] },
+    { id: 'servicos', name: 'Serviços e assinaturas', icon: '🧩', type: 'despesa', kw: ['dlocal', 'okx', 'servicos digitais', '3rz', 'stark bank', 'transfero', 'asaas', 'flagship', 'gowd', 'quality automacao', 'kiwify', 'google', 'apple', 'microsoft', 'latam gateway', 'pix marketplace', 'marketplace', 'shpp brasil', 'iugu', 'cosmeticos', 'inovar'] },
+    { id: 'lazer', name: 'Compras e lazer', icon: '✨', type: 'despesa', kw: ['loja', 'shopping', 'amazon', 'mercadolivre', 'mercado livre', 'netflix', 'spotify', 'cinema', 'redecine', 'academia', 'pro life', 'imports', 'kennedy', 'metal boulevard', 'livraria', 'presente'] },
+    { id: 'fatura', name: 'Fatura do cartão', icon: '💳', type: 'despesa', kw: ['fatura', 'pagamento de fatura', 'cartao de credito'] },
+    { id: 'emprestimos_despesa', name: 'Empréstimos pagos', icon: '💰', type: 'despesa', kw: ['emprestimo', 'empréstimo', 'parcela emprestimo', 'pagamento emprestimo'] },
+    { id: 'transporte', name: 'Transporte', icon: '🚗', type: 'despesa', kw: ['uber', '99pop', '99 app', 'posto', 'auto posto', 'combustivel', 'shell', 'ipiranga', 'frogpay', 'estacionamento', 'leo motos', 'narciso', 'postoleme', 'brasil park', 'brasilpark'] },
+    { id: 'saude', name: 'Saúde', icon: '💊', type: 'despesa', kw: ['farmacia', 'drogaria', 'drogasil', 'vila farma', 'cibien', 'marconi', 'rocha e vilela', 'hospital', 'medic', 'clinica', 'laboratorio', 'saude'] },
+    { id: 'moradia', name: 'Casa e contas', icon: '🏠', type: 'despesa', kw: ['internet', 'vivo', 'claro', 'telefonica', 'energia', 'enel', 'cemig', 'agua', 'aluguel', 'condominio'] },
+    { id: 'investimentos', name: 'Investimentos', icon: '🏦', type: 'despesa', kw: ['aplicacao rdb', 'resgate rdb', 'rdb', 'cofrinho', 'caixinha', 'investimento', 'aplicacao', 'aplicação'] },
+    { id: 'saque', name: 'Saque', icon: '🏧', type: 'despesa', kw: ['saque'] },
+    { id: 'outros', name: 'Outros', icon: '📦', kw: [] }
   ];
 
   function defaults() {
     return {
       tx: [], balances: {}, initialBalances: {}, goals: [], budgets: {}, rules: {},
-      patrimonio: [], customCats: [], catOverrides: {}, catDreByType: {},
+      patrimonio: [], customCats: [], catOverrides: {}, catDreByType: {}, catMeta: {},
       reservePct: 50, reserveTarget: 0, reserveValor: 0,
       theme: 'dark', privacy: false, seenNotifications: false, catVer: 0
     };
@@ -77,9 +78,22 @@
     return new Date(k + '-01T00:00:00').toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
   }
 
+  // allCats: base (com overrides de nome/ícone/kw) + personalizadas. Marca base/inactive.
   function allCats(st) {
     st = st || load();
-    return CATS.concat(Array.isArray(st.customCats) ? st.customCats : []);
+    var ov = st.catOverrides || {}, meta = st.catMeta || {};
+    var base = CATS.map(function (c) {
+      var o = ov[c.id] || {}, m = meta[c.id] || {}, r = Object.assign({}, c, { base: true });
+      if (o.name) r.name = o.name;
+      if (o.icon) r.icon = o.icon;
+      if (o.kw) r.kw = o.kw;
+      r.inactive = !!(o.inactive || m.inactive);
+      return r;
+    });
+    var custom = (Array.isArray(st.customCats) ? st.customCats : []).map(function (c) {
+      var m = meta[c.id] || {}; return Object.assign({ base: false }, c, { inactive: !!(c.inactive || m.inactive) });
+    });
+    return base.concat(custom);
   }
   function catById(id, st) {
     var c = allCats(st).find(function (x) { return x.id === id; });
@@ -345,6 +359,67 @@
   function catUsage(st, id) { st = st || load(); return st.tx.filter(function (t) { return t.cat === id; }).length; }
   function addCat(c) { var st = load(); c.id = c.id || 'cat_' + uid(); st.customCats = st.customCats || []; st.customCats.push(c); save(st); return c.id; }
   function delCat(id) { var st = load(); st.customCats = (st.customCats || []).filter(function (c) { return c.id !== id; }); save(st); }
+  var DRE_GROUPS = [
+    { id: 'receita_fixa', name: 'Receita Fixa' }, { id: 'receita_variavel', name: 'Receita Variável' },
+    { id: 'deducoes', name: 'Deduções' }, { id: 'despesas_fixas', name: 'Despesas Fixas' },
+    { id: 'despesas_variaveis', name: 'Despesas Variáveis' }, { id: 'fora_dre', name: 'Não entra no DRE' }
+  ];
+  function catMetaOf(st, id) { st = st || load(); return (st.catMeta || {})[id] || {}; }
+  function catActive(st, id) { var c = allCats(st).find(function (x) { return x.id === id; }); return c ? !c.inactive : true; }
+  function catColor(st, id) { var m = (st.catMeta || {})[id] || {}; if (m.color && /^#[0-9a-fA-F]{6}$/.test(m.color)) return m.color; var c = catById(id, st); return c.type === 'receita' ? '#22e68b' : '#7c4dff'; }
+  function catDreGroupOf(st, id) { st = st || load(); var t = catById(id, st).type || 'despesa'; var r = (st.catDreByType || {})[id]; return (r && r[t]) || (t === 'receita' ? 'receita_variavel' : 'despesas_variaveis'); }
+  // updateCat: edita base (via catOverrides) OU personalizada; grava kw/cor/DRE/ativa nas MESMAS
+  // estruturas que o desktop lê (catOverrides/customCats/catMeta/catDreByType).
+  function updateCat(id, patch) {
+    var st = load(); patch = patch || {};
+    if (isBaseCat(id)) {
+      st.catOverrides = st.catOverrides || {}; var o = st.catOverrides[id] = st.catOverrides[id] || {};
+      if (patch.name != null) o.name = patch.name;
+      if (patch.icon != null) o.icon = patch.icon;
+      if (patch.kw != null) o.kw = patch.kw;
+      if (patch.inactive != null) o.inactive = !!patch.inactive;
+    } else {
+      var c = (st.customCats || []).find(function (x) { return x.id === id; });
+      if (c) { if (patch.name != null) c.name = patch.name; if (patch.icon != null) c.icon = patch.icon; if (patch.type != null) c.type = patch.type; if (patch.kw != null) c.kw = patch.kw; if (patch.inactive != null) c.inactive = !!patch.inactive; if (patch.dreGroup != null) c.dreGroup = patch.dreGroup; }
+    }
+    if (patch.color != null || patch.desc != null || patch.account != null || patch.inactive != null) {
+      st.catMeta = st.catMeta || {}; var m = st.catMeta[id] = st.catMeta[id] || {};
+      if (patch.color != null) m.color = patch.color;
+      if (patch.desc != null) m.desc = patch.desc;
+      if (patch.account != null) m.account = patch.account;
+      if (patch.inactive != null) m.inactive = !!patch.inactive;
+    }
+    if (patch.dreGroup != null) { st.catDreByType = st.catDreByType || {}; var tp = patch.type || catById(id, st).type || 'despesa'; st.catDreByType[id] = st.catDreByType[id] || {}; st.catDreByType[id][tp] = patch.dreGroup; }
+    save(st); return true;
+  }
+  function setCatActive(id, on) { return updateCat(id, { inactive: !on }); }
+  function exportCatsJSON(st) {
+    st = st || load();
+    return JSON.stringify({ app: 'mrfinance', kind: 'categorias', version: 1, exportedAt: new Date().toISOString(), customCats: st.customCats || [], catOverrides: st.catOverrides || {}, catDreByType: st.catDreByType || {}, catMeta: st.catMeta || {} }, null, 2);
+  }
+  function importCatsJSON(text) {
+    try {
+      var d = JSON.parse(text); if (!d || typeof d !== 'object') return { ok: false, error: 'formato' };
+      var st = load(); st.customCats = Array.isArray(st.customCats) ? st.customCats : []; var added = 0;
+      if (Array.isArray(d.customCats)) d.customCats.forEach(function (c) { if (c && c.id && c.name && !st.customCats.some(function (x) { return x.id === c.id; }) && !allCats(st).some(function (x) { return x.base && norm(x.name) === norm(c.name); })) { st.customCats.push(c); added++; } });
+      if (d.catOverrides && typeof d.catOverrides === 'object') st.catOverrides = Object.assign(st.catOverrides || {}, d.catOverrides);
+      if (d.catDreByType && typeof d.catDreByType === 'object') st.catDreByType = Object.assign(st.catDreByType || {}, d.catDreByType);
+      if (d.catMeta && typeof d.catMeta === 'object') { st.catMeta = st.catMeta || {}; Object.keys(d.catMeta).forEach(function (k) { if (d.catMeta[k] && typeof d.catMeta[k] === 'object') st.catMeta[k] = Object.assign(st.catMeta[k] || {}, d.catMeta[k]); }); }
+      save(st); return { ok: true, added: added };
+    } catch (e) { return { ok: false, error: '' + e }; }
+  }
+  // splitTx: fraciona uma transação em várias categorias (porta fiel do applySplitTx do desktop).
+  function splitTx(id, parts) {
+    var st = load(); var orig = st.tx.find(function (t) { return t.id === id; }); if (!orig) return { ok: false, error: 'notfound' };
+    parts = (parts || []).filter(function (p) { return (+p.valor || 0) > 0; });
+    if (parts.length < 2) return { ok: false, error: 'min2' };
+    var total = parts.reduce(function (s, p) { return s + (+p.valor || 0); }, 0);
+    if (Math.abs(total - (+orig.valor || 0)) > 0.01) return { ok: false, error: 'sum' };
+    var baseDesc = orig.originalDesc || orig.desc || 'Transação';
+    var created = parts.map(function (p, i) { var c = catById(p.cat, st); return Object.assign({}, orig, { id: (orig.id || 'tx') + ':split:' + uid() + ':' + i, valor: +(+p.valor).toFixed(2), cat: p.cat, interno: !!c.interno, desc: baseDesc + ' · parte ' + (i + 1) + '/' + parts.length, splitFrom: orig.id, splitPart: i + 1, splitTotal: parts.length, originalAmount: orig.valor }); });
+    st.tx = st.tx.filter(function (t) { return t.id !== id; });
+    st.tx.push.apply(st.tx, created); save(st); return { ok: true, count: created.length };
+  }
 
   /* --- Config / reserva --- */
   function setReserve(pct, valor) { var st = load(); if (pct != null) st.reservePct = pct; if (valor != null) st.reserveValor = valor; save(st); }
@@ -434,11 +509,158 @@
   var BANK_TYPES = ['Banco', 'Carteira', 'Dinheiro', 'Investimento', 'Cartão', 'Outros'];
   var BANK_EMOJIS = ['💵', '🏦', '💳', '🏧', '👛', '💰', '🐷', '💎', '🪙', '📈', '🛡️', '🏛️', '🟣', '🟢', '🟠', '🔵'];
 
+  /* ============================================================================
+     IMPORTAÇÃO de extratos (OFX / CSV / PDF) — porta fiel do desktop.
+     Parsers + categorização automática (catOf) + import incremental com dedup.
+     Camada SEM DOM: recebe texto/linhas, devolve transações; a UI (mobile.js)
+     cuida do <input type=file>/leitura de PDF/telas de resumo e revisão.
+     ============================================================================ */
+  var STOP = { 'de': 1, 'da': 1, 'do': 1, 'dos': 1, 'das': 1, 'e': 1 };
+  function titleName(s) {
+    return (s || '').toLowerCase().split(' ').map(function (w, i) { return (STOP[w] && i > 0) ? w : (w.charAt(0).toUpperCase() + w.slice(1)); }).join(' ').replace(/\bS A\b/g, 'S.A.').trim();
+  }
+  function isCPF(s) { return /•••|\d{3}\.\d{3}\.\d{3}-/.test(s || ''); }
+  function isCNPJ(s) { return /\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}/.test(s || ''); }
+  function isInterno(m) { return m.includes('aplicacao rdb') || m.includes('resgate rdb') || /\brdb\b/.test(m) || m.includes('cofrinho') || m.includes('caixinha'); }
+  function cleanEntity(s) {
+    s = (s || '').replace(/\s+/g, ' ').trim();
+    s = s.split(/ - (?:•|\d{2}\.\d{3}\.\d{3})/)[0].trim();
+    s = s.replace(/\b(Ag[eê]ncia|Conta)\b.*$/i, '').trim();
+    s = s.replace(/^(MP|PAYGO|FROGPAY|JIM\.COM|PG|PIX|IUGU|PAGSEGURO|MERCADOPAGO|MERCADO PAGO)\s*\*\s*/i, '');
+    s = s.replace(/^\d{2}\.\d{3}\.\d{3}(?:\/\d{4}-\d{2})?\s*-?\s*/, '');
+    s = s.replace(/^\d{8,}\s+/, '').replace(/\s+\d{8,}$/, '');
+    s = s.replace(/[\s\-*]+$/, '').trim();
+    return titleName(s || '(sem descricao)');
+  }
+  var PREFIXES = /^(Compra (?:no d[eé]bito|no cr[eé]dito|parcelada no cr[eé]dito)(?: via NuPay)?|Transfer[eê]ncia (?:enviada|recebida)(?: pelo Pix)?|Pix (?:enviado|recebido)|Reembolso recebido(?: pelo Pix)?|Dep[oó]sito Recebido por Boleto|Estorno)\s*-\s*/i;
+  function merchantName(memo) {
+    var raw = (memo || '').replace(/\s+/g, ' ').trim(); var n = norm(raw);
+    if (n.includes('pagamento de fatura')) return 'Pagamento de fatura';
+    if (n.includes('resgate de emprestimo')) return 'Resgate de empréstimo';
+    if (n.includes('aplicacao rdb') || (n.includes('aplicacao') && /\brdb\b/.test(n))) return 'Aplicação na reserva';
+    if (n.includes('resgate rdb')) return 'Resgate da reserva';
+    if (/^saque/.test(n)) return 'Saque';
+    if (n.includes('valor adicionado') && n.includes('cartao')) return 'Entrada via cartão de crédito';
+    var stripped = raw.replace(PREFIXES, '').trim();
+    return cleanEntity(stripped || raw || memo || '(sem descricao)');
+  }
+  // catOf: categorização automática de um memo (fiel ao desktop). Usa st.rules + keywords.
+  function catOf(st, memo, tipo) {
+    st = st || load();
+    var cats = allCats(st), m = norm(memo), d = norm(merchantName(memo));
+    var byId = function (id) { return cats.find(function (c) { return c.id === id; }) || { id: id, name: 'Outros', icon: '📦' }; };
+    if (st.rules && st.rules[d]) { var r = cats.find(function (c) { return c.id === st.rules[d]; }); if (r) return r; }
+    if (isInterno(m)) return byId('investimentos');
+    if (m.includes('pagamento de fatura')) return byId('fatura');
+    if (m.includes('resgate de emprestimo') || m.includes('emprestimo')) return byId(tipo === 'receita' ? 'emprestimos_receita' : 'emprestimos_despesa');
+    if (/(^| )saque/.test(m)) return byId('saque');
+    if (m.includes('reembolso') || m.startsWith('estorno')) return byId('reembolso');
+    var list = cats.filter(function (c) { return !c.interno && (!c.type || c.type === tipo); });
+    var hit = list.find(function (c) { return (c.kw || []).some(function (k) { var nk = norm(k); return nk && d.includes(nk); }); });
+    if (hit) return hit;
+    if (tipo === 'receita') return byId(m.includes('ruan victor') ? 'salario' : 'recebidos');
+    if (m.includes('enviada pelo pix') || m.includes('pix enviado') || m.includes('transferencia enviada')) return byId(isCNPJ(memo) ? 'outros' : 'pessoas');
+    return byId('outros');
+  }
+  function tag(seg, t) { var m = seg.match(new RegExp('<' + t + '>([^<\\r\\n]*)', 'i')); return m ? m[1].trim() : ''; }
+  // parseOFX: extrai transações + ancora o saldo de fechamento (st.balances) quando houver.
+  function parseOFX(st, text) {
+    var out = [], ofxNum = function (v) { v = String(v == null ? '' : v).trim(); if (v.includes(',') && !v.includes('.')) v = v.replace(',', '.'); return parseFloat(v); };
+    text.split(/<STMTTRN>/i).slice(1).forEach(function (b) {
+      var amt = ofxNum(tag(b, 'TRNAMT')); var dt = tag(b, 'DTPOSTED').replace(/[^0-9]/g, '').slice(0, 8);
+      if (!isNaN(amt) && dt.length === 8) {
+        var memo = tag(b, 'MEMO'), tipo = amt >= 0 ? 'receita' : 'despesa', c = catOf(st, memo, tipo), fitid = tag(b, 'FITID'), date = dt.slice(0, 4) + '-' + dt.slice(4, 6) + '-' + dt.slice(6, 8), dsc = merchantName(memo);
+        out.push({ id: 'ofx:' + (fitid || dt + amt + memo), date: date, tipo: tipo, valor: Math.abs(amt), memo: memo, desc: dsc, cat: c.id, interno: !!c.interno, fitid: fitid || '', originalDesc: dsc, originalCat: c.id, originalValor: Math.abs(amt), originalDate: date });
+      }
+    });
+    var lb = text.match(/<LEDGERBAL>([\s\S]*?)<\/LEDGERBAL>/i);
+    if (lb) { var v = ofxNum(tag(lb[1], 'BALAMT')); var dt2 = tag(lb[1], 'DTASOF').replace(/[^0-9]/g, '').slice(0, 8); if (!isNaN(v) && dt2.length === 8) { st.balances = st.balances || {}; st.balances[dt2.slice(0, 4) + '-' + dt2.slice(4, 6)] = v; } }
+    return out;
+  }
+  function catStatement(desc, tipo) {
+    var d = norm(desc);
+    if (d.includes('cashback') || d.includes('recomp') || d.includes('rcmp') || d.includes('cupom') || d.includes('rendiment')) return 'rendimentos';
+    if (d.includes('devolucao') || d.includes('estorno') || d.startsWith('est ')) return 'reembolso';
+    if (d.includes('recebido')) return 'recebidos';
+    if (d.includes('corrida')) return 'transporte';
+    if (d.includes('boleto') || d.includes('fatura')) return 'fatura';
+    if (d.includes('pagamento')) return 'pessoas';
+    return tipo === 'receita' ? 'recebidos' : 'outros';
+  }
+  function parseStatementLines(lines) {
+    var out = [], seen = {};
+    var re = /(-?[\d.]+,\d{2})\s+(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}:\d{2}:\d{2})\s+(.+?)(?=\s+-?[\d.]+,\d{2}\s+\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2}|$)/g;
+    lines.forEach(function (raw) {
+      var l = (raw || '').replace(/\s+/g, ' ').trim(); var m; re.lastIndex = 0;
+      while ((m = re.exec(l))) {
+        var val = parseFloat(m[1].replace(/\./g, '').replace(',', '.')); if (isNaN(val)) continue;
+        var date = m[4] + '-' + m[3] + '-' + m[2]; var desc = m[6].trim(); if (!desc) continue;
+        var tipo = val >= 0 ? 'receita' : 'despesa'; var base = 'pdf:' + date + '_' + m[5] + '_' + m[1] + '_' + norm(desc); var id = base, i = 1;
+        while (seen[id]) id = base + '#' + (++i); seen[id] = 1;
+        var dsc = titleName(desc.toLowerCase()), cc = catStatement(desc, tipo);
+        out.push({ id: id, date: date, tipo: tipo, valor: Math.abs(val), memo: desc, desc: dsc, cat: cc, interno: false, originalDesc: dsc, originalCat: cc, originalValor: Math.abs(val), originalDate: date });
+      }
+    });
+    return out;
+  }
+  function splitCsvLine(line, sep) { var out = [], cur = '', q = false; for (var i = 0; i < line.length; i++) { var ch = line[i]; if (ch === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; } else if (ch === sep && !q) { out.push(cur.trim()); cur = ''; } else cur += ch; } out.push(cur.trim()); return out; }
+  function parseMoney(v) { v = ('' + (v == null ? '' : v)).replace(/\s/g, '').replace(/R\$/gi, ''); if (!v) return 0; var neg = /^-|\((.*)\)/.test(v); v = v.replace(/[()]/g, '').replace(/^-/, ''); if (v.includes(',') && v.includes('.')) v = v.replace(/\./g, '').replace(',', '.'); else if (v.includes(',')) v = v.replace(',', '.'); var n = parseFloat(v.replace(/[^0-9.]/g, '')); return (neg ? -1 : 1) * (isNaN(n) ? 0 : n); }
+  function parseCsvDate(v) { v = ('' + (v == null ? '' : v)).trim(); var m = v.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/); if (m) return m[1] + '-' + m[2].padStart(2, '0') + '-' + m[3].padStart(2, '0'); m = v.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})/); if (m) { var y = m[3].length === 2 ? '20' + m[3] : m[3]; return y + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0'); } return ''; }
+  // parseCSV: detecta separador + colunas (data/descrição/valor/tipo/categoria). Retorna {tx, error}.
+  function parseCSV(st, text) {
+    st = st || load(); text = (text || '').replace(/^﻿/, '').replace(/\r/g, '').trim(); if (!text) return { tx: [], error: 'Arquivo vazio.' };
+    var lines = text.split('\n').filter(function (l) { return l.trim(); }); if (!lines.length) return { tx: [], error: 'Arquivo vazio.' };
+    var sep = (lines[0].match(/;/g) || []).length >= (lines[0].match(/,/g) || []).length ? ';' : ',';
+    var headers = splitCsvLine(lines[0], sep).map(function (h) { return norm(h); });
+    var idx = function (names) { return headers.findIndex(function (h) { return names.some(function (n) { return h.includes(n); }); }); };
+    var iDate = idx(['data', 'date', 'dt']), iDesc = idx(['descricao', 'historico', 'memo', 'nome', 'lancamento', 'transacao']), iVal = idx(['valor', 'amount', 'quantia']), iType = idx(['tipo', 'type', 'entrada saida']), iCat = idx(['categoria', 'category']);
+    if (iDate < 0 || iVal < 0) return { tx: [], error: 'CSV não reconhecido: precisa ter colunas de data e valor.' };
+    var cats = allCats(st), out = [];
+    for (var r = 1; r < lines.length; r++) {
+      var cols = splitCsvLine(lines[r], sep); var date = parseCsvDate(cols[iDate]); var val = parseMoney(cols[iVal]); if (!date || !val) continue;
+      var tipo = val >= 0 ? 'receita' : 'despesa';
+      if (iType >= 0) { var tv = norm(cols[iType]); if (tv.includes('desp') || tv.includes('saida') || tv.includes('debito')) tipo = 'despesa'; if (tv.includes('rece') || tv.includes('entrada') || tv.includes('credito')) tipo = 'receita'; }
+      var desc = (iDesc >= 0 && cols[iDesc] ? cols[iDesc].trim() : 'Lançamento CSV ' + r);
+      var c = catOf(st, desc, tipo);
+      if (iCat >= 0 && cols[iCat]) { var cn = norm(cols[iCat]); var found = cats.find(function (x) { return norm(x.name) === cn || x.id === cn || norm(x.name).includes(cn); }); if (found) c = found; }
+      var base = 'csv:' + date + '_' + Math.abs(val) + '_' + norm(desc), dsc = titleName(desc.toLowerCase());
+      out.push({ id: base, date: date, tipo: tipo, valor: Math.abs(val), memo: desc, desc: dsc, cat: c.id, interno: !!c.interno, originalDesc: dsc, originalCat: c.id, originalValor: Math.abs(val), originalDate: date });
+    }
+    return { tx: out, error: out.length ? '' : 'Nenhuma transação reconhecida no CSV.' };
+  }
+  /* Import incremental com dedup por FITID/chave composta, preservando edições manuais. */
+  function impNormDesc(s) { return norm(s || '').replace(/\s+/g, ' ').trim(); }
+  function impKey(t) { if (t.fitid) return 'fit:' + t.fitid; var d = t.originalDate || t.date || ''; var v = Math.abs(+(t.originalValor != null ? t.originalValor : t.valor) || 0).toFixed(2); var desc = impNormDesc(t.originalDesc || t.memo || t.desc); var acc = t.account || t.conta || ''; return 'k:' + d + '|' + v + '|' + (t.tipo || '') + '|' + desc + '|' + acc; }
+  function impLoose(t) { var d = t.originalDate || t.date || ''; var v = Math.abs(+(t.originalValor != null ? t.originalValor : t.valor) || 0).toFixed(2); return 'L:' + d + '|' + v + '|' + (t.tipo || ''); }
+  function impIsEdited(t) { if (!t) return false; if (t.editedManual) return true; if (t.originalDesc != null && impNormDesc(t.desc) !== impNormDesc(t.originalDesc)) return true; if (t.originalCat != null && t.cat !== t.originalCat) return true; if (t.note) return true; return false; }
+  // stageImport: dado o estado + transações lidas, separa novos/duplicados/já-existentes.
+  // Retorna {staged, review, summary, last} — NÃO grava (a UI decide e chama commitImport).
+  function stageImport(st, incoming) {
+    var exactIds = {}; st.tx.forEach(function (t) { exactIds[t.id] = 1; });
+    var keyMap = {}, looseMap = {};
+    st.tx.forEach(function (t) { var k = impKey(t); if (!keyMap[k]) keyMap[k] = t; var lk = impLoose(t); (looseMap[lk] = looseMap[lk] || []).push(t); });
+    var staged = [], review = [], stagedKeys = {}, existing = 0, preserved = 0, last = '';
+    (incoming || []).forEach(function (t) {
+      var k = impKey(t); t._k = k;
+      if (exactIds[t.id] || keyMap[k] || stagedKeys[k]) { var ex = keyMap[k]; if (ex && impIsEdited(ex)) preserved++; else existing++; return; }
+      var cands = looseMap[impLoose(t)] || [];
+      if (cands.length) { review.push({ incoming: t, candidate: cands[0] }); return; }
+      staged.push(t); stagedKeys[k] = 1; if (t.date > last) last = t.date;
+    });
+    return { staged: staged, review: review, last: last, summary: { novos: staged.length, existentes: existing, duplicados: review.length, preservados: preserved, erros: 0 } };
+  }
+  function commitImport(st, staged, last) {
+    (staged || []).forEach(function (t) { delete t._k; st.tx.push(t); });
+    st.seenNotifications = false; save(st); return st;
+  }
+
   global.MRCore = {
     KEY: KEY, CATS: CATS,
     load: load, save: save, defaults: defaults, uid: uid, hasData: hasData, norm: norm,
     money: money, compact: compact, monthKey: monthKey, monthName: monthName, monthShort: monthShort,
     allCats: allCats, catById: catById, isBaseCat: isBaseCat, catUsage: catUsage, addCat: addCat, delCat: delCat,
+    updateCat: updateCat, catMetaOf: catMetaOf, catActive: catActive, catColor: catColor, catDreGroupOf: catDreGroupOf,
+    setCatActive: setCatActive, DRE_GROUPS: DRE_GROUPS, exportCatsJSON: exportCatsJSON, importCatsJSON: importCatsJSON, splitTx: splitTx,
     mtx: mtx, agg: agg, months: months, runningBalance: runningBalance, getInitialBalance: getInitialBalance,
     pendingTotals: pendingTotals, categoryBreakdown: categoryBreakdown, incomeBreakdown: incomeBreakdown,
     savingsRate: savingsRate, txOfMonth: txOfMonth,
@@ -451,6 +673,9 @@
     BANK_KEY: BANK_KEY, BANK_TYPES: BANK_TYPES, BANK_EMOJIS: BANK_EMOJIS,
     getBanks: getBanks, bankCalc: bankCalc, banksConsolidated: banksConsolidated,
     addBank: addBank, updateBank: updateBank, delBank: delBank, archiveBank: archiveBank, setBankInitial: setBankInitial,
-    addTx: addTx, delTx: delTx, updateTx: updateTx, setTheme: setTheme
+    addTx: addTx, delTx: delTx, updateTx: updateTx, setTheme: setTheme,
+    catOf: catOf, merchantName: merchantName, titleName: titleName,
+    parseOFX: parseOFX, parseCSV: parseCSV, parseStatementLines: parseStatementLines,
+    stageImport: stageImport, commitImport: commitImport, impKey: impKey, impIsEdited: impIsEdited
   };
 })(window);
